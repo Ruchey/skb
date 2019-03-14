@@ -102,16 +102,6 @@ class WorksView(PartitionsView):
         return context
 
 
-# class AJAXPost(View):
-    # def dispatch(self, request, *args, **kwargs):
-    #     if not request.is_ajax():
-    #         return http.HttpResponseBadRequest(
-    #             ('Direct HTTP request is not allowed'))
-    #     if not request.method == 'POST':
-    #         return http.HttpResponseBadRequest(
-    #             ('GET requests are not allowed'))
-    #     return super().dispatch(request, *args, **kwargs)
-
 
 class WorksItemView(generic.DetailView):
     '''Формируем окно просмотра картинки

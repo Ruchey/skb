@@ -447,6 +447,7 @@ table {
 }
 
 .tile {
+  flex: 1 0 300px;
   width: 50%;
   padding: 10px;
   box-sizing: border-box;;

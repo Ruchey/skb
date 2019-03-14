@@ -19,34 +19,11 @@ if (slides) {
 
 get_array_thumbs();
 
-
-
-var arrow = document.getElementsByClassName("icon-right");
-if (arrow.length > 0) {
-  document.onkeydown = NavigateThrough;
-  function NavigateThrough (event) {
-
-    switch (event.keyCode ? event.keyCode : event.which ? event.which : null) {
-
-      // previous_page
-      case 0x25:
-        nextSlide(0);
-        break;
-      // next_page
-      case 0x27:
-        nextSlide(1);
-        break;
-        }
-      }
-    }
-
-
-
-
-
-
-
-
+var cat_item_view = document.getElementsByClassName("cat_item_view");
+if (cat_item_view.length > 0) {
+  addKeys();
+  addSensor();
+}
 
 
 
@@ -119,6 +96,8 @@ function createGalleryView(data) {
   container.innerHTML = data;
   main.appendChild(container.firstChild);
   listKeys = true;
+  addKeys();
+  addSensor();
   get_array_thumbs();
 }
 
@@ -217,3 +196,75 @@ function send(event) {
   });
 }
 
+
+// Добавляем управление клавишами галлереей
+function addKeys() {
+
+  document.onkeydown = NavigateThrough;
+  function NavigateThrough (event) {
+    var closeicon = document.getElementsByClassName("close");
+
+    switch (event.keyCode ? event.keyCode : event.which ? event.which : null) {
+
+      // Предыдущий слайд
+      case 0x25:
+        nextSlide(0);
+        break;
+      // Следующий слайд
+      case 0x27:
+        nextSlide(1);
+        break;
+      // ESC
+      case 0x1B:
+        if (closeicon.length > 0) {
+            closeGalleryObject();
+          break;
+      }
+    }
+  }
+}
+
+// Добавляем управление на сенсорных экранах
+function addSensor() {
+
+  var startPoint={};
+  var nowPoint;
+  var ldelay;
+  document.addEventListener('touchstart', function(event) {
+  event.stopPropagation();
+  startPoint.x=event.changedTouches[0].pageX;
+  startPoint.y=event.changedTouches[0].pageY;
+  ldelay=new Date(); 
+  }, false);
+  /*Ловим движение пальцем*/
+  document.addEventListener('touchmove', function(event) {
+  event.stopPropagation();
+  var otk={};
+  nowPoint=event.changedTouches[0];
+  otk.x=nowPoint.pageX-startPoint.x;
+
+  if(Math.abs(otk.x)>200){
+  if(otk.x<0){ nextSlide(1); }
+  if(otk.x>0){ nextSlide(0); }
+
+  startPoint={x:nowPoint.pageX,y:nowPoint.pageY};
+  }
+  }, false);
+  /*Ловим отпускание пальца*/
+  document.addEventListener('touchend', function(event) {
+  var pdelay=new Date(); 
+  nowPoint=event.changedTouches[0];
+  var xAbs = Math.abs(startPoint.x - nowPoint.pageX);
+  var yAbs = Math.abs(startPoint.y - nowPoint.pageY);
+  if ((xAbs > 20 || yAbs > 20) && (pdelay.getTime()-ldelay.getTime())<200) {
+  if (xAbs > yAbs) {
+  if (nowPoint.pageX < startPoint.x){ nextSlide(1); }
+  else{ nextSlide(0); }
+  }
+  else {
+  if (nowPoint.pageY < startPoint.y){ /*СВАЙП ВВЕРХ*/ }
+  else{/*СВАЙП ВНИЗ*/}
+  }
+  }
+  }, false);
+}
