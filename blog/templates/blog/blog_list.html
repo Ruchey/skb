@@ -1,0 +1,27 @@
+{% extends "blog/blog_base.html" %}
+{% load staticfiles %}
+{% block keywords %}статьи, мебель{% endblock %}
+{% block title %}Полезные статьи про мебель{% endblock %}
+
+{% block blog-contanier %}
+{% if posts %}
+<ul class="content-list">
+  {% for post in posts %}
+  <li class="content-list-item">
+    <article>
+      <header class="header_post_list"><a href="">Рубрика: {{ post.rubric }}.&nbsp;</a>
+      <span> Опубликовано: {{ post.publish }}</span></header>
+      <div class="post-cover" style="background-image: url('{{ post.cover.url }}');"></div>
+      <h2><a class="post_title" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+      <div>{{ post.body | safe | truncatewords_html:100 }}</div>
+      <a href="{% url 'blog:post_detail' post.slug %}" class="post_read_more">Читать дальше</a>
+    </article>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>Нет доступных записей.</p>
+{% endif %}
+{% include 'pagination.html' with page=page_obj %}
+{% endblock %}
+

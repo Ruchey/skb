@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block description %}{{ partition.description }}{% endblock %}
+{% block keywords %}{{ partition.keywords }}{% endblock %}
+{% block title %}{{ partition.title }}{% endblock %}
+
+{% block content %}
+<h1 class="main_title contrast">{{ partition.title|safe }}</h1>
+<div class="contrast">{{ partition.content|safe }}</div>
+<div class="gallery_grid">
+{% for obj in phobj %}
+<a href="{{ request.path }}{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
+  <img src="{{ obj.get_middle_thumb_url }}">
+</a>
+{% endfor %}
+</div>
+<script>
+  var context_list = {{ context_list }};
+  var url_type = "{{ url_type }}";
+  var url_get = "{{ url_get }}";
+  var current_photoobj = {{ current_photoobj }};
+</script>
+{% endblock %}
+

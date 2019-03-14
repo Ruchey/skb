@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block description %}{{ partition.description }}{% endblock %}
+{% block keywords %}{{ partition.keywords }}{% endblock %}
+{% block title %}{{ partition.title }}{% endblock %}
+
+{% block content %}
+<h1 class="main_title contrast">{{ partition.title|safe }}</h1>
+<div class="contrast">{{ partition.content|safe }}</div>
+<div class="tile-wrap flex-row">
+{% for base in bases %}
+  <div class="tile-part">
+    <a href="{{ base.get_absolute_url }}" class="unit-link" tabindex="{{ forloop.counter }}"></a>
+    <figure style="background-image: url('{{ base.phobj.get_middle_thumb_url }}')" class="bg-top flex-column-rev">
+      <figcaption>
+        <strong>Артикул: {{ base.article }}</strong>
+        {% if base.height1 or base.width1 or base.depth %}<table>
+          {% if base.height1 %}<tr><th>Высота: </th><td>{{ base.height1 }}-{{ base.height2 }}</td></tr>{% endif %}
+          {% if base.width1 %}<tr><th>Ширина: </th><td>{{ base.width1 }}-{{ base.width2 }}</td></tr>{% endif %}
+          {% if base.depth %}<tr><th>Глубина:</th><td>{{ base.depth }}</td></tr>{% endif %}
+        </table>{% endif %}
+      </figcaption>
+    </figure>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
+

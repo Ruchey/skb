@@ -1,0 +1,19 @@
+<div id="back_wrap">{% load static %}
+  <div class="cat_item_wrap cat_container">
+    <div class="cat_item_view">
+      <img id="slide" src="{{ images.first.img.url }}" alt="{{ item.title }}" data-img_id="{{ images.first.pk }}">
+      <svg class="icon-left icon-nav" onclick="nextSlide(0)"><use xlink:href="{% static 'core/img/icons.svg' %}#left" /></svg>
+      <svg class="icon-right icon-nav" onclick="nextSlide(1)"><use xlink:href="{% static 'core/img/icons.svg' %}#right" /></svg>
+      <div class="cat_thumb_container">
+        {% for img in images %}
+        <img src="{{ img.get_thumb_url }}" data-img_id="{{ img.pk }}" rel="thumb" {% if forloop.counter == 1 %}class="thumb-active"{% endif %}>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="cat_item_info">
+      <h1 class="main_title black">{{ item.title }}</h1>
+      <div id="description">{{ item.description|safe }}</div>
+    </div>
+  </div>
+  <svg class="close icon-nav" onclick="closeGalleryObject()"><use xlink:href="{% static 'core/img/icons.svg' %}#close" /></svg>
+</div>

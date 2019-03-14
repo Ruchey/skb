@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block description %}{{ item.shortdesc }}{% endblock %}
+{% block keywords %}{{ item.keywords }}{% endblock %}
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block content %}
+<div class="cat_item_wrap" itemscope itemtype="http://schema.org/Product">
+  <div class="cat_item_view">
+    <img id="slide" src="{{ images.first.img.url }}" alt="{{ item.title }}" itemprop="image" data-img_id="{{ images.first.pk }}">
+    <div class="cat_thumb_container">
+      {% for img in images %}
+      <img src="{{ img.get_thumb_url }}" data-img_id="{{ img.pk }}" rel="thumb" {% if forloop.counter == 1 %}class="thumb-active"{% endif %}>
+      {% endfor %}
+    </div>
+    <svg class="icon-left icon-nav" onclick="nextSlide(0);" width="40px" height="40px"><use xlink:href="{% static 'core/img/icons.svg' %}#left" /></svg>
+    <svg class="icon-right icon-nav" onclick="nextSlide(1);" width="40px" height="40px"><use xlink:href="{% static 'core/img/icons.svg' %}#right" /></svg>
+  </div>
+  <div class="cat_item_info">
+    <h1 class="main_title black" itemprop="name">{{ item.title }}</h1>
+    <table class="table_item">
+      {% if item.height1 %}<tr><th>Высота: </th><td itemprop="height">{{ item.height1 }}-{{ item.height2 }}</td><td>мм</td></tr>{% endif %}
+      {% if item.width1 %}<tr><th>Ширина: </th><td itemprop="width">{{ item.width1 }}-{{ item.width2 }}</td><td>мм</td></tr>{% endif %}
+      {% if item.depth %}<tr><th>Глубина:</th><td itemprop="depth">{{ item.depth }}</td><td>мм</td></tr>{% endif %}
+      <tr><th>Артикул:</th><td itemprop="depth">{{ item.article }}</td></tr>
+      {% if item.price > 0 %}
+      {% if item.price %}<tr><th>Цена от:</th><td itemprop="depth">{{ item.price }}</td><td>руб.</td></tr>{% endif %}
+      {% endif %}
+    </table>
+    <br>
+    <div id="description" itemprop="description">{{ item.description|safe }}</div>
+    <meta itemprop="productID" content="{{ item.article }}">
+  </div>
+<div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer" class="" style="
+    display: none;">
+  <meta itemprop="lowPrice" content="{{ item.price }}">
+  <meta itemprop="priceCurrency" content="RUB">
+  <link itemprop="availability" href="http://schema.org/InStock">
+</div>
+</div>
+<h3 class="main_title contrast">Другие изделия</h3>
+<div class="flex-row">
+  {% for base in bases %}
+  <a href="{{ base.get_absolute_url }}"><img src="{{ base.phobj.get_thumb_url }}"></a>
+  {% endfor %}
+</div>
+<script>
+  var context_list = {{ context_list }};
+  var url_type = "{{ url_type }}";
+  var url_get = "{{ url_get }}";
+  var current_photoobj = {{ current_photoobj }};
+</script>
+{% endblock %}
+

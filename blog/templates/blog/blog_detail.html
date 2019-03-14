@@ -1,0 +1,27 @@
+{% extends "blog/blog_base.html" %}
+{% block description %}{{ post_detail.description }}{% endblock %}
+{% block keywords %}{{ post_detail.keywords }}{% endblock %}
+{% block title %}{{ post_detail.title }}{% endblock %}
+{% load staticfiles %}
+{% block blog-contanier %}
+<article  class="content-list-item">
+  <header class="header_post_list">
+    <a href="">Рубрика: {{ post_detail.rubric }}.&nbsp;</a><span>Опубликовано: {{ post_detail.publish }}</span>
+  </header>
+  <h1>{{ post_detail.title }}</h1>
+  {{ post_detail.body | safe }}
+<footer class="footer-post">
+  <span>Поделиться: </span>
+  <ul class="post-share-buttons">
+    <li><a href="https://vk.com/share.php?url={{ request.get_host }}{{ request.get_full_path }}" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=700,height=500,toolbar=0,status=0'); return false"><svg class="vk" width="24px" height="24px"><use xlink:href="{% static 'core/img/icons.svg' %}#vk" /></svg></a></li>
+
+    <li><a href="https://connect.ok.ru/offer?url={{ request.get_host }}{{ request.get_full_path }}" onclick="window.open(this.href, 'Опубликовать ссылку в Одноклассниках', 'width=700,height=500,toolbar=0,status=0'); return false"><svg class="ok" width="24px" height="24px"><use xlink:href="{% static 'core/img/icons.svg' %}#ok" /></svg></a></li>
+    
+    <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_host }}{{ request.get_full_path }}" onclick="window.open(this.href, 'Опубликовать ссылку в FaceBook', 'width=700,height=500,toolbar=0,status=0'); return false">
+      <svg class="fb" width="24px" height="24px"><use xlink:href="{% static 'core/img/icons.svg' %}#fb" /></svg>
+    </a></li>
+  </ul>
+</footer>
+</article>
+{% endblock %}
+

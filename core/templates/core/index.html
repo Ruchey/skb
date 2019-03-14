@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}К-МЕБЕЛЬ|Главная{% endblock %}
+
+{% block content %}
+ <h1 class="main_title contrast">Шкафы-купе . Гардеробные . Шкафы платяные</h1>
+ <h2 class="main_title contrast">на заказ в Белгороде</h2>
+
+<section>
+  <div class="tile-wrap flex-row">
+  {% for part in partitions %}
+    <div class="tile-part">
+      <a href="{{ part.url }}" class="unit-link" tabindex="{{ forloop.counter }}"></a>
+      <figure style="background-image: url('{{ part.cover.url }}');" class="bg-bot">
+        <figcaption>
+          <h4 class="headline">{{ part.title|safe }}</h4>
+          {% if part.description %}
+          <h5 class="subhead">{{ part.description|safe }}</h5>
+          {% endif %}
+          <a href="{{ part.url }}" class="more">Подробнее</a>
+        </figcaption>
+      </figure>
+    </div>
+  {% endfor %}
+  </div>
+</section>
+<section>
+  <div class="howwork flex-column contrast">
+    <h2>Как мы работаем</h2>
+    <div class="flex-row">
+      <figure>
+        <svg class="icon-hw" width="100px" height="100px"><use xlink:href="{% static 'core/img/icons.svg' %}#chat" /></svg>
+        <figcaption>обсуждаем предварительный проект и считаем стоимость</figcaption>
+      </figure>
+      <figure>
+        <svg class="icon-hw" width="100px" height="100px"><use xlink:href="{% static 'core/img/icons.svg' %}#roulette" /></svg>
+        <figcaption>выезжаем на замер</figcaption>
+      </figure>
+      <figure>
+        <svg class="icon-hw" width="100px" height="100px"><use xlink:href="{% static 'core/img/icons.svg' %}#calc" /></svg>
+        <figcaption>корректируем проект и делаем окончательный расчёт стоимости</figcaption>
+      </figure>
+      <figure>
+        <svg class="icon-hw" width="100px" height="100px"><use xlink:href="{% static 'core/img/icons.svg' %}#contract" /></svg>
+        <figcaption>заключаем договор</figcaption>
+      </figure>
+      <figure>
+        <svg class="icon-hw" width="100px" height="100px"><use xlink:href="{% static 'core/img/icons.svg' %}#delivery" /></svg>
+        <figcaption>изготавливаем, привозим и собираем</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<section>
+  {{ main_content|safe }}
+</section>
+<section>
+  <h2 class="full-width contrast">Напишите нам, что бы рассчитать проект.</h2>
+<div class="flex-row">
+  <div class="tile contrast">
+    {{ send_content|safe }}
+  </div>
+  <form class="tile contact" id="contact" action="{% url 'contact_form' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <p> <input type="text" name="name" placeholder="Ваше имя" maxlength="50" class="form-control" id="id_name"></p>
+  <p> <input type="text" name="phone" placeholder="Номер телефона. Обязательно" maxlength="50" class="form-control" required id="id_phone"></p>
+  <p> <input type="text" name="email" placeholder="email" maxlength="50" class="form-control" id="id_email"></p>
+  <p> <textarea name="body" cols="40" rows="10" placeholder="Текст сообщения. Обязательно" class="form-control" required id="id_body">
+  </textarea></p>
+  <p> <input type="file" name="files" multiple class="form-control" id="id_files"></p>
+    <button class="btn" type="image">Отправить</button>
+  </form>
+</div>
+</section>
+{% endblock %}

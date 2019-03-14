@@ -1,0 +1,5 @@
+<form class="contact" action="{% url 'contact_form' %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn" type="submit">Отправить</button>
+</form>

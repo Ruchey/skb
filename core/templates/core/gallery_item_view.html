@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block description %}{{ partition.description }}{% endblock %}
+{% block keywords %}{{ partition.keywords }}{% endblock %}
+{% block title %}{{ partition.title }}{% endblock %}
+
+{% block content %}
+<h1 class="main_title contrast">{{ partition.title|safe }}</h1>
+<div class="contrast">{{ partition.content|safe }}</div>
+<div class="gallery_grid">
+{% for obj in phobj %}
+<a href="{{ request.path }}{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
+  <img src="{{ obj.get_middle_thumb_url }}">
+</a>
+{% endfor %}
+</div>
+<div class="cat_item_wrap cat_container">
+  <div class="cat_item_view">
+    <img id="slide" src="{{ images.first.img.url }}" alt="{{ item.title }}" data-img_id="{{ images.first.pk }}">
+    <svg class="icon-left icon-nav" onclick="nextSlide(0)"><use xlink:href="{% static 'core/img/icons.svg' %}#left" /></svg>
+    <svg class="icon-right icon-nav" onclick="nextSlide(1)"><use xlink:href="{% static 'core/img/icons.svg' %}#right" /></svg>
+    <div class="cat_thumb_container">
+      {% for img in images %}
+      <img src="{{ img.get_thumb_url }}" data-img_id="{{ img.pk }}" rel="thumb" {% if forloop.counter == 1 %}class="thumb-active"{% endif %}>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="cat_item_info">
+    <h1 class="main_title black">{{ item.title }}</h1>
+    <div id="description">{{ item.description|safe }}</div>
+  </div>
+</div>
+<script>
+  var context_list = {{ context_list|default:'[]' }};
+  var url_type = "{{ url_type }}";
+  var url_get = "{{ url_get }}";
+  var current_photoobj = {{ current_photoobj|default:0 }};
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

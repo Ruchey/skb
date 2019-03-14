@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ flatpage.title }}{% endblock %}
+{% block content %}
+<div class="blog-contanier">
+{{ flatpage.content }}
+<section>
+  <h2 class="full-width contrast">Напишите нам, что бы рассчитать проект.</h2>
+<div class="flex-row">
+  <form class="tile contact" id="contact" action="{% url 'contact_form' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <p> <input type="text" name="name" placeholder="Ваше имя" maxlength="50" class="form-control" id="id_name"></p>
+  <p> <input type="text" name="phone" placeholder="Номер телефона. Обязательно" maxlength="50" class="form-control" required id="id_phone"></p>
+  <p> <input type="text" name="email" placeholder="email" maxlength="50" class="form-control" id="id_email"></p>
+  <p> <textarea name="body" cols="40" rows="10" placeholder="Текст сообщения. Обязательно" class="form-control" required id="id_body">
+  </textarea></p>
+  <p> <input type="file" name="files" multiple class="form-control" id="id_files"></p>
+    <button class="btn" type="image">Отправить</button>
+  </form>
+</div>
+</section>
+</div>
+{% endblock %}

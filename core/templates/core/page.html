@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}К-МЕБЕЛЬ|{{ page.title }}{% endblock %}
+
+{% block content %}
+<h1 class="main_title">{{ page.title }}</h1>
+{{ page.body|safe  }}
+{% endblock %}

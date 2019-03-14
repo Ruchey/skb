@@ -1,0 +1,33 @@
+/*DIN2014*/
+
+@font-face {
+  font-family: 'DIN2014';
+  src: url("../fonts/DIN2014/Light.ttf") format("truetype");
+  font-weight: lighter;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'DIN2014';
+  src: url("../fonts/DIN2014/LightItalic.ttf") format("truetype");
+  font-weight: lighter;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'DIN2014';
+  src: url("../fonts/DIN2014/Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'DIN2014';
+  src: url("../fonts/DIN2014/BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+  font-display: block;
+}

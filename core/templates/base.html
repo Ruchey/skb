@@ -1,0 +1,65 @@
+<!DOCTYPE html>{% load staticfiles %}
+<html lang="ru">
+<head>
+  <link rel="icon" type="image/png" href="{% static 'core/favicon.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'core/favicon-16x16.png' %}" sizes="16x16">
+  <link rel="icon" type="image/png" href="{% static 'core/favicon-32x32.png' %}" sizes="32x32">
+  <link rel="icon" type="image/png" href="{% static 'core/favicon-96x96.png' %}" sizes="96x96">
+  <link rel="icon" type="image/png" href="{% static 'core/favicon-180x180.png' %}" sizes="96x96">
+
+  <link rel="stylesheet" href="{% static 'core/css/corefonts.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/css/core.css' %}" />
+  <link rel="stylesheet" href="{% static 'core/css/core-media.css' %}" />
+  <link rel="stylesheet" href="{% static 'contact/css/contact.css' %}" />
+  <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{% block description %}Шкафы-купе, гардеробные и кухни на заказ в Белгороде.{% endblock %}">
+  <meta name="keywords" content="{% block keywords %}шкафы-купе, гардеробные, кухни, прихожие, шкафы{% endblock %}">
+{% include 'metrica.html' %}
+  <title>{% block title %}К-МЕБЕЛЬ{% endblock %}</title>
+</head>
+<body>
+{% block header %}
+{% include 'core/header.html' %}
+{% endblock %}
+<main role="main">
+<div class="container">
+  {% block content %}
+  {% include template_content %}
+  {% endblock %}
+</div>
+</main>
+ <footer>
+  <div class="container">
+   <div class="footer-box">
+     <ul class="menu">
+       <li><a href="/" title="Главная">Главная</a></li>
+       <li><a href="/works/" title="Наши работы">Наши работы</a></li>
+       <li><a href="/blog/" title="Блог">Статьи</a></li>
+       <li><a href="/about/contact/" title="Контакты">Контакты</a></li>
+     </ul>
+   </div>
+   <div class="footer-box">
+    <ul class="menu">
+      {% for part in partitions %}
+      <li>
+        <a href="{{ part.url }}">{{ part.title|safe }}</a>
+      </li>
+      {% endfor %}
+      </ul>
+   </div>
+   <div class="footer-box">
+     <ul class="menu">
+       <li><a href="tel:+79202068398" title="Контакты">8(920)-206-83-98</a></li>
+       <li><a href="mailto:shkafkupebel@ya.ru?subject=Заявка%20с%20сайт">shkafkupebel@ya.ru</a></li>
+       <li><a href="https://vk.com/shkafkupebel" target="_blank">Вконтакте</a></li>
+       <li><a href="/about/contact/">Написать</a></li>
+     </ul>
+   </div>
+  </div>
+ </footer>
+ <script src="{% static 'core/js/core.js' %}"></script>
+</body>
+</html>
+

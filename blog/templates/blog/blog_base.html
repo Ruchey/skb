@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block description %}{{ post_detail.description }}{% endblock %}
+{% block keywords %}{{ post_detail.keywords }}{% endblock %}
+{% block title %}{{ post_detail.title }}{% endblock %}
+
+{% block content %}
+<div class="blog-wrap">
+  <div class="blog-contanier">
+{% block blog-contanier %}
+{% endblock %}
+  </div>
+  <aside class="aside-blog">
+    <h3>Статьи</h3>
+    <ul class="aside-blog-list">
+      {% for post in posts %}
+      <li class="aside-blog-item">
+        <a class="post_title" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+</div>
+{% endblock %}
+
