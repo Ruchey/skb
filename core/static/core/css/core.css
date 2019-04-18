@@ -201,9 +201,11 @@ nav a {
 }
 
 .tile-cover {
-  max-height: 100%;
-  max-width: 100%;
+  height: 100%;
+  width: 100%;
   flex: 1 1 0px;
+  object-fit: contain;
+  overflow: scroll;
 }
 
 .tile-part figcaption {
