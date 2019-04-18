@@ -74,9 +74,11 @@ function ajaxPOST(url, data, callback) {
 }
 
 // Замена url картинки в просмотре
-function changeSlide(url, id) {
+function changeSlide(data, id) {
   var img = document.getElementById("slide");
-  img.src = url;
+  imgs = JSON.parse(data);
+  img.src = imgs.jpg;
+  img.srcset = imgs.webp;
   img.dataset.img_id = id;
   var thumb_active = document.querySelector(`[class="thumb-active"][rel="thumb"]`);
   if (thumb_active) {
@@ -106,8 +108,8 @@ function get_img(id) {
 
   var id = id;
   var get_img_url = "/pl/get/" + id;
-  ajaxGET(get_img_url, function(url) {
-    changeSlide(url, id);
+  ajaxGET(get_img_url, function(data) {
+    changeSlide(data, id);
   });
 }
 

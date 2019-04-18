@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['shkafkupebel.ru']
+ALLOWED_HOSTS = ['f0219564.xsph.ru', 'shkafkupebel.ru']
 
 
 # Application definition
@@ -122,31 +122,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = os.path.join(BASE_DIR, '..', 'public_html', 'static')
 STATICFILES_FINDERS = ["django.contrib.staticfiles.finders.FileSystemFinder",
                        "django.contrib.staticfiles.finders.AppDirectoriesFinder"]
 FILE_CHARSET = 'utf-8'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '..', 'public_html', 'media')
 MEDIA_URL = '/media/'
 
-SITE_ID = 3
+SITE_ID = 1
 
 # Настройки для фотографий
 
 THUMB_IMAGE_SIZE = (140, 140)
 MIDDLE_SIZE_IMAGE = (320, 340)
+COVER_IMAGE_SIZE = (460, 460)
 MAX_SIZE_IMAGE = (1200, 800)
-WATERMARK_PATH = 'core/static/core/img/watermark_KM.png'
+WATERMARK_PATH = os.path.join(BASE_DIR, 'core/static/core/img/watermark_KM.png')
 
-
-if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.157']
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-
+FILE_UPLOAD_TEMP_DIR = os.path.expanduser('~/tmp')
+FILE_UPLOAD_PERMISSIONS = 0o644
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760

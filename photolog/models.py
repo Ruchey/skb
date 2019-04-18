@@ -58,6 +58,10 @@ class PhotoObject(models.Model):
         else:
             return None
 
+    def get_thumb_jpg_url(self):
+
+        return utils.get_jpg_path(self.get_thumb_url())
+
     def get_middle_thumb_url(self):
 
         obj = Images.objects.filter(phobj_id=self.pk)
@@ -65,6 +69,10 @@ class PhotoObject(models.Model):
             return utils.get_prefix_path(obj.first().img.url, 'mid')
         else:
             return None
+
+    def get_middle_thumb_jpg_url(self):
+
+        return utils.get_jpg_path(self.get_middle_thumb_url())
 
     def thumb(self):
         path = self.get_thumb_url()
@@ -84,12 +92,24 @@ class Images(models.Model):
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
 
+    def get_jpg_url(self):
+
+        return utils.get_jpg_path(self.img.url)
+
     def get_thumb_url(self):
         return utils.get_prefix_path(self.img.url)
 
+    def get_thumb_jpg_url(self):
+
+        return utils.get_jpg_path(self.get_thumb_url())
+
     def get_middle_thumb_url(self):
         return utils.get_prefix_path(self.img.url, 'mid')
-        
+
+    def get_middle_thumb_jpg_url(self):
+
+        return utils.get_jpg_path(self.get_middle_thumb_url())
+
     def thumb(self):
         if self.img:
             path = self.get_thumb_url()
@@ -115,10 +135,12 @@ class Images(models.Model):
             image = PIL.Image.open(filepath)
             image = utils.get_box_thumb(image, settings.THUMB_IMAGE_SIZE)
             image.save(os.path.normpath(thumb_file_name))
+            utils.to_jpg(thumb_file_name)
             # Создадим обложку
             image = PIL.Image.open(filepath)
             image.thumbnail(settings.MIDDLE_SIZE_IMAGE, resample=PIL.Image.LANCZOS)
             image.save(os.path.normpath(middle_file_name))
+            utils.to_jpg(middle_file_name)
             # Просто уменьшим картинку до заданного MAX_SIZE_IMAGE
             image = PIL.Image.open(filepath)
             width, height = image.size
@@ -129,8 +151,8 @@ class Images(models.Model):
             image.save(os.path.normpath(new_file_name))
             self.img.name = new_db_img
             super(Images, self).save(*args, **kwargs)
-            
             image.close()
+            utils.to_jpg(self.img.path)
             if filepath != new_file_name:
                 os.remove(filepath)
 

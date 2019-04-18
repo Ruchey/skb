@@ -7,10 +7,10 @@
 {% block content %}
 <div class="cat_item_wrap" itemscope itemtype="http://schema.org/Product">
   <div class="cat_item_view">
-    <img id="slide" src="{{ images.first.img.url }}" alt="{{ item.title }}" itemprop="image" data-img_id="{{ images.first.pk }}">
+    <img id="slide" src="{{ images.first.get_jpg_url }}" alt="{{ item.title }}" itemprop="image" data-img_id="{{ images.first.pk }}" srcset="{{ images.first.img.url }}">
     <div class="cat_thumb_container">
       {% for img in images %}
-      <img src="{{ img.get_thumb_url }}" data-img_id="{{ img.pk }}" rel="thumb" {% if forloop.counter == 1 %}class="thumb-active"{% endif %}>
+      <img src="{{ img.get_thumb_jpg_url }}" data-img_id="{{ img.pk }}" rel="thumb" {% if forloop.counter == 1 %}class="thumb-active"{% endif %} srcset="{{ img.get_thumb_url }}">
       {% endfor %}
     </div>
     <svg class="icon-left icon-nav" onclick="nextSlide(0);" width="40px" height="40px"><use xlink:href="{% static 'core/img/icons.svg' %}#left" /></svg>
@@ -39,9 +39,9 @@
 </div>
 </div>
 <h3 class="main_title contrast">Другие изделия</h3>
-<div class="flex-row">
+<div class="flex-grid">
   {% for base in bases %}
-  <a href="{{ base.get_absolute_url }}"><img src="{{ base.phobj.get_thumb_url }}"></a>
+  <a href="{{ base.get_absolute_url }}"><img src="{{ base.phobj.get_thumb_jpg_url }}" srcset="{{ base.phobj.get_thumb_url }}"></a>
   {% endfor %}
 </div>
 <script>

@@ -24,6 +24,8 @@ QUANTITY_DOORS = (
     )
 
 
+
+
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset()\
@@ -90,8 +92,10 @@ class HomePage(models.Model):
 
 class Partitions(CommonInfo):
 
+    COVER = 'cover'
+
     url = models.CharField(max_length=100, db_index=True, verbose_name='URL')
-    cover = models.ImageField(upload_to='cover', blank=True, null=True, verbose_name='Обложка')
+    cover = models.ImageField(upload_to=COVER, blank=True, null=True, verbose_name='Обложка')
     content = models.TextField(blank=True, verbose_name='Содержание')
     template_name = models.CharField(max_length=70, blank=True,
                                     help_text="Пример: 'core/contact_page.html'", verbose_name='Имя шаблона')
@@ -104,6 +108,13 @@ class Partitions(CommonInfo):
         verbose_name = 'Страницы'
         verbose_name_plural = 'Страницы'
         ordering = ('sort',)
+
+    @property
+    def cover_url_jpg(self):
+        name, ext = os.path.splitext(os.path.basename(self.cover.url))
+        dir = os.path.dirname(self.cover.url)
+        file = '{0}.{1}'.format(name, 'jpg')
+        return os.path.join(dir, 'JPG', file)
 
     def thumb(self):
         if self.cover:
@@ -127,11 +138,12 @@ class Partitions(CommonInfo):
             new_file_name = utils.get_rename_path(filepath, self.pk)
             # Создадим обложку
             image = PIL.Image.open(filepath)
-            image.thumbnail(settings.MIDDLE_SIZE_IMAGE, resample=PIL.Image.LANCZOS)
+            image.thumbnail(settings.COVER_IMAGE_SIZE, resample=PIL.Image.LANCZOS)
             image.save(os.path.normpath(new_file_name))
             self.cover.name = new_db_img
             super(Partitions, self).save(*args, **kwargs)
             image.close()
+            utils.to_jpg(self.cover.path)
             if filepath != new_file_name:
                 os.remove(filepath)
 

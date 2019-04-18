@@ -15,26 +15,37 @@ class IndexView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['main_content'] = models.HomePage.published.first().main_content
-        context['send_content'] = models.HomePage.published.first().send_content
+        c = models.HomePage.published.first()
+        if c:
+            context['main_content'] = c.main_content
+            context['send_content'] = c.send_content
         return context
 
 
 class PartitionsView(generic.base.TemplateView):
 
     def get_obj(self):
-        path = self.request.path
-        obj = models.Partitions.objects.get(url = path)
-        return obj
+        try:
+            path = self.request.path
+            obj = models.Partitions.objects.get(url = path)
+            return obj
+        except Exception as e:
+            raise
 
     def get_template_names(self):
-        template_name = self.get_obj().template_name
-        return template_name
+        try:
+            template_name = self.get_obj().template_name
+            return template_name
+        except Exception as e:
+            return 'core/index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['partition'] = self.get_obj()
-        return context
+        try:
+            context['partition'] = self.get_obj()
+            return context
+        except Exception as e:
+            return context
 
 
 class BasicView(PartitionsView):
@@ -43,11 +54,13 @@ class BasicView(PartitionsView):
     def get_context_data(self, **kwargs):
 
         filter = self.kwargs.get('prodtype', '')
-        bases = models.StandardModel.objects.all().filter(prod_type=filter)
-        context = super().get_context_data(**kwargs)
-        context['bases'] = bases
-        return context
-
+        try:
+            bases = models.StandardModel.objects.all().filter(prod_type=filter)
+            context = super().get_context_data(**kwargs)
+            context['bases'] = bases
+            return context
+        except Exception as e:
+            raise
 
 
 class BasicItemView(generic.DetailView):
@@ -63,19 +76,22 @@ class BasicItemView(generic.DetailView):
         context = super().get_context_data(**kwargs)
 
         filter = self.kwargs.get('prodtype', '')
-        bases = models.StandardModel.objects.all().filter(prod_type=filter)
-        phobj_id = []
-        for obj in bases:
-            phobj_id.append(obj.pk)
+        try:
+            bases = models.StandardModel.objects.all().filter(prod_type=filter)
+            phobj_id = []
+            for obj in bases:
+                phobj_id.append(obj.pk)
 
-        id = self.kwargs.get('pk')
-        context['images'] = models.StandardModel.objects.get(pk=id).phobj.images_set.all()
-        context['bases'] = bases
-        context['context_list'] = phobj_id
-        context['url_type'] = 'noajax'
-        context['url_get'] = '/base/{}/'.format(filter)
-        context['current_photoobj'] = id
-        return context
+            id = self.kwargs.get('pk')
+            context['images'] = models.StandardModel.objects.get(pk=id).phobj.images_set.all()
+            context['bases'] = bases
+            context['context_list'] = phobj_id
+            context['url_type'] = 'noajax'
+            context['url_get'] = '/base/{}/'.format(filter)
+            context['current_photoobj'] = id
+            return context
+        except:
+            raise
 
 
 class WorksView(PartitionsView):
@@ -84,22 +100,25 @@ class WorksView(PartitionsView):
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
-        obj = self.get_obj()
-        catalogs = obj.catalog.all()
-        photoobjects = []
-        phobj_id = []
-        
-        for cat in catalogs:
-            photoobjects.extend(cat.photoobject_set.all())
-        for obj in photoobjects:
-            phobj_id.append(obj.pk)
+        try:
+            obj = self.get_obj()
+            catalogs = obj.catalog.all()
+            photoobjects = []
+            phobj_id = []
+            
+            for cat in catalogs:
+                photoobjects.extend(cat.photoobject_set.all())
+            for obj in photoobjects:
+                phobj_id.append(obj.pk)
 
-        context['phobj'] = photoobjects
-        context['context_list'] = phobj_id
-        context['url_type'] = 'ajax'
-        context['url_get'] = '/works/'
-        context['current_photoobj'] = phobj_id[0]
-        return context
+            context['phobj'] = photoobjects
+            context['context_list'] = phobj_id
+            context['url_type'] = 'ajax'
+            context['url_get'] = '/works/'
+            context['current_photoobj'] = phobj_id[0]
+            return context
+        except:
+            pass
 
 
 

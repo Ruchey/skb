@@ -1,6 +1,6 @@
 @media (orientation:portrait) {
 .cat_item_wrap {
-  grid-template-columns: minmax(316px, 1fr);
+  grid-template-columns: minmax(300px, 1fr);
 }
 
 .cat_item_view {

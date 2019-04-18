@@ -10,7 +10,8 @@
 {% for base in bases %}
   <div class="tile-part">
     <a href="{{ base.get_absolute_url }}" class="unit-link" tabindex="{{ forloop.counter }}"></a>
-    <figure style="background-image: url('{{ base.phobj.get_middle_thumb_url }}')" class="bg-top flex-column-rev">
+    <figure>
+      <img class="tile-cover" src="{{ base.phobj.get_middle_thumb_jpg_url }}" alt="" srcset="{{ base.phobj.get_middle_thumb_url }}">
       <figcaption>
         <strong>Артикул: {{ base.article }}</strong>
         {% if base.height1 or base.width1 or base.depth %}<table>

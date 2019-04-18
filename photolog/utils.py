@@ -37,15 +37,14 @@ def get_prefix_path(path, prefix='tmb'):
     return thumb_file_name
 
 
-def add_watermark(image, watermark_path=settings.WATERMARK_PATH, opacity=0.3, opacity2=0.2):
+def add_watermark(image, watermark_path=settings.WATERMARK_PATH, opacity=0.1, opacity2=0.2):
     """
     image - объект картинка, на которую накладываете изображение
     watermark - картинка, которую накладываете
     opacity - прозрачность
 
     """
-
-    assert opacity >= 0 and opacity <= 1
+    
     watermark = Image.open(watermark_path)
 
     img_w, img_h = image.size
@@ -63,8 +62,9 @@ def add_watermark(image, watermark_path=settings.WATERMARK_PATH, opacity=0.3, op
         else:
             watermark = watermark.copy()
         alpha = watermark.split()[3]
+        alpha2 = watermark.split()[3]
         alpha = ImageEnhance.Brightness(alpha).enhance(opacity)
-        alpha2 = ImageEnhance.Brightness(alpha).enhance(opacity2)
+        alpha2 = ImageEnhance.Brightness(alpha2).enhance(opacity2)
         watermark.putalpha(alpha)
         watermark2 = watermark.copy()
         watermark2.putalpha(alpha2)
@@ -92,4 +92,32 @@ def to_webp(path, name):
     img = Image.open(path)
     img.save(newpath, "WEBP", quality=90)
     os.remove(path)
+
     return newname
+
+def get_jpg_path(path, folder='JPG'):
+    '''Получить путь к файлу в формате JPG'''
+
+    dir, filename = os.path.split(path)
+    newdir = os.path.join(dir, folder)
+    name, ext = os.path.splitext(filename)
+    newfilename = '{0}.{1}'.format(name, 'jpg')
+    newpath = os.path.join(newdir, newfilename)
+
+    return newpath
+
+def to_jpg(path, folder='JPG'):
+    '''Сохранение картинки в формате jpg в указанную папку'''
+
+    dir, filename = os.path.split(path)
+    newdir = os.path.join(dir, folder)
+    if not os.path.exists(newdir):
+        os.mkdir(newdir)
+
+    newpath = get_jpg_path(path, folder)
+    img = Image.open(path)
+    if img.mode == 'RGBA':
+        img = img.convert('RGB')
+    img.save(newpath, quality=100)
+
+    return newpath

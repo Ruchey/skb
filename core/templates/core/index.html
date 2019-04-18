@@ -11,7 +11,7 @@
   {% for part in partitions %}
     <div class="tile-part">
       <a href="{{ part.url }}" class="unit-link" tabindex="{{ forloop.counter }}"></a>
-      <figure style="background-image: url('{{ part.cover.url }}');" class="bg-bot">
+      <figure>
         <figcaption>
           <h4 class="headline">{{ part.title|safe }}</h4>
           {% if part.description %}
@@ -19,6 +19,7 @@
           {% endif %}
           <a href="{{ part.url }}" class="more">Подробнее</a>
         </figcaption>
+        <img class="tile-cover" src="{{ part.cover_url_jpg }}" alt="" srcset="{{ part.cover.url }}">
       </figure>
     </div>
   {% endfor %}

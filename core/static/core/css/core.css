@@ -3,7 +3,7 @@
   padding: 0;
   border: black;
   border-width: thin;
-  color: #000;
+  color: rgb(0, 0, 0);
   font-family: "DIN2014","Helvetica",sans-serif;
 }
 
@@ -35,7 +35,7 @@ ol, ul {
 
 /*----------------------------------*/
 body {
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   font-size: 100%;
   font-weight: lighter;
   letter-spacing: 0.05em;
@@ -71,7 +71,7 @@ main {
 
 footer {
   flex: 0 0 auto;
-  background-color: #2B3139;
+  background-color: rgb(34, 51, 51);
   font-weight: lighter;
 }
 
@@ -88,7 +88,7 @@ footer .menu {
 }
 
 footer .menu li a {
-  color: #fff;
+  color: rgb(255, 255, 255);
   border-bottom: white 1px dotted;
 }
 
@@ -122,7 +122,7 @@ nav {
 }
 
 nav a {
-  color: #fff;
+  color: rgb(255, 255, 255);
   margin: 0 10px;
 }
 
@@ -177,23 +177,33 @@ nav a {
 .tile-part {
   position: relative;
   margin: 5px;
-  flex: 1 0 300px;
+  flex: 1 0 290px;
   width: 100%;
   height: 500px;
   box-sizing: border-box;
   padding: 10px;
-  background-color: #F2F2F2FF;
+  background-color: rgb(242, 242, 242);
 }
 
 .tile-part:hover {
-  box-shadow: #bbb 0 0 10px 0px;
+  box-shadow: rgb(187, 187, 187) 0 0 10px 0px;
 }
 
 .tile-part figure {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
   margin: 0;
   padding: 0;
   height: 100%;
-  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.tile-cover {
+  max-height: 100%;
+  max-width: 100%;
+  flex: 1 1 0px;
 }
 
 .tile-part figcaption {
@@ -235,7 +245,7 @@ a.unit-link {
 
 a.more{
   position: relative;
-  color: #0070c9;
+  color: rgb(0, 109, 199);
   font-size: 17px;
   font-weight: 400;
   z-index: 4;
@@ -257,7 +267,14 @@ a.more:hover {
   background-position: bottom;
 }
 
-
+.grid140 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 140px);
+  grid-template-rows: repeat(auto-fit, 140px);
+  grid-gap: 5px;
+  justify-content: center;
+  box-sizing: border-box;
+}
 
 /*--------------------------*/
 
@@ -294,11 +311,12 @@ table {
   grid-template-rows: repeat(auto-fit, 320px);
   grid-gap: 5px;
   justify-content: center;
-  /*align-items: stretch;*/
-  }
+  box-sizing: border-box;
+}
 
 .gallery_grid img {
-  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border: 1px solid rgb(204, 204, 204);
   max-width: 100%;
   width: 260px;
   height: 320px;
@@ -317,8 +335,8 @@ table {
   width: 330px;
   height: 70px;
   margin: 15px 0;
-  background-color: #ff6600;
-  color: #fff;
+  background-color: rgb(255, 102, 0);
+  color: rgb(255, 255, 255);
 }
 
 /*Блок Как мы работаем*/
@@ -379,7 +397,7 @@ table {
 .cat_item_wrap {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr minmax(316px, 1fr);
+  grid-template-columns: 1fr 1fr minmax(300px, 1fr);
   grid-gap: 10px;
   user-select: none;
 }
@@ -396,7 +414,7 @@ table {
   height: calc(100vh - 70px);
   max-height: 900px;
   padding: 10px 10px 5px 10px;
-  background-color: #F2F2F2FF;
+  background-color: rgb(242, 242, 242);
   position: relative;
 }
 
@@ -422,7 +440,7 @@ table {
 }
 
 .thumb-active {
-  border: 6px solid #ffad00;
+  border: 6px solid rgb(255, 174, 0);
   box-sizing: border-box;
 }
 
@@ -432,14 +450,14 @@ table {
   width: 100%;
   height: calc(100vh - 70px);
   padding: 10px;
-  color: #000;
-  background-color: #F2F2F2FF;
+  color: rgb(0, 0, 0);
+  background-color: rgb(242, 242, 242);
 }
 
 .cat_item_bord {
   width: 2%;
   content: '';
-  border: 1px solid #fff;
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .contact {
@@ -466,7 +484,7 @@ table {
 }
 
 .error {
-  background-color: #FEBCB7FF!important;
+  background-color: rgb(255, 187, 187)!important;
 }
 
 
@@ -475,27 +493,27 @@ table {
 /*Иконки*/
 
 svg.vk {
-  background-color: #4a739a;
-  fill: #fff;
+  background-color: rgb(75, 115, 156);
+  fill: rgb(255, 255, 255);
   border-radius: 3px;
 }
 
 svg.ok {
   background-color: #E80;
-  fill: #fff;
+  fill: rgb(255, 255, 255);
   border-radius: 3px;
 }
 
 svg.fb {
-  background-color: #359;
-  fill: #fff;
+  background-color: rgb(51, 85, 153);
+  fill: rgb(255, 255, 255);
   border-radius: 3px;
 }
 
 svg.icon-nav {
   width: 1em;
   height: 1em;
-  fill: #fff;
+  fill: rgb(255, 255, 255);
   filter: drop-shadow( 0px 1px 1px grey );
 }
 
@@ -537,6 +555,6 @@ svg.icon-right {
 svg.icon-hw {
   width: 5em;
   height: 5em;
-  fill: #556;
+  fill: rgb(85, 85, 102);
   filter: drop-shadow( 0px 1px 1px grey );
 }
