@@ -18,8 +18,8 @@
           <h5 class="subhead">{{ part.description|safe }}</h5>
           {% endif %}
           <a href="{{ part.url }}" class="more">Подробнее</a>
-        </figcaption>
-        <img class="tile-cover" src="{{ part.cover_url_jpg }}" alt="" srcset="{{ part.cover.url }}">
+        </figcaption>{% if part.cover %}
+        <img class="tile-cover" src="{{ part.cover_url_jpg }}" alt="" srcset="{{ part.cover.url }}">{% endif %}
       </figure>
     </div>
   {% endfor %}

@@ -37,7 +37,7 @@ class PartitionsAdmin(admin.ModelAdmin):
 
 @admin.register(models.HomePage)
 class HomePageAdmin(admin.ModelAdmin):
-    list_display = ('main_content', 'send_content', 'publish')
+    list_display = ('pk', 'main_content', 'send_content', 'publish')
 
 
 @admin.register(models.DefInfo)

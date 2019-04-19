@@ -111,10 +111,13 @@ class Partitions(CommonInfo):
 
     @property
     def cover_url_jpg(self):
-        name, ext = os.path.splitext(os.path.basename(self.cover.url))
-        dir = os.path.dirname(self.cover.url)
-        file = '{0}.{1}'.format(name, 'jpg')
-        return os.path.join(dir, 'JPG', file)
+        if self.cover:
+            name, ext = os.path.splitext(os.path.basename(self.cover.url))
+            dir = os.path.dirname(self.cover.url)
+            file = '{0}.{1}'.format(name, 'jpg')
+            return os.path.join(dir, 'JPG', file)
+        else:
+            return ''
 
     def thumb(self):
         if self.cover:
