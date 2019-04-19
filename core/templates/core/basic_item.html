@@ -39,7 +39,7 @@
 </div>
 </div>
 <h3 class="main_title contrast">Другие изделия</h3>
-<div class="flex-grid">
+<div class="grid140">
   {% for base in bases %}
   <a href="{{ base.get_absolute_url }}"><img src="{{ base.phobj.get_thumb_jpg_url }}" srcset="{{ base.phobj.get_thumb_url }}"></a>
   {% endfor %}
@@ -51,4 +51,3 @@
   var current_photoobj = {{ current_photoobj }};
 </script>
 {% endblock %}
-

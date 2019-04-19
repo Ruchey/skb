@@ -9,7 +9,7 @@
 <div class="tile-wrap flex-row">
 {% for base in bases %}
   <div class="tile-part">
-    <a href="{{ base.get_absolute_url }}" class="unit-link" tabindex="{{ forloop.counter }}"></a>
+    <a href="{{ base.get_absolute_url }}" class="unit-link" tabindex="{{ forloop.counter }}" aria-label="Подробно про {{ base.article }}"></a>
     <figure>
       <img class="tile-cover" src="{{ base.phobj.get_middle_thumb_jpg_url }}" alt="" srcset="{{ base.phobj.get_middle_thumb_url }}">
       <figcaption>
