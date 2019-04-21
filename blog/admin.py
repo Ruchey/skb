@@ -7,7 +7,7 @@ class ImagesInline(admin.TabularInline):
     
     model = Images
     extra = 3
-    fields = ('title', 'img', 'thumb')
+    fields = ('title', 'size', 'img', 'thumb')
     readonly_fields = ('thumb',)
 
 

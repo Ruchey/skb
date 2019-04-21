@@ -13,6 +13,7 @@ class PublishedManager(models.Manager):
         return super(PublishedManager, self).get_queryset()\
                                             .filter(status='published')
 
+
 class CommonInfo(models.Model):
     'Абстрактная модель для общих полей'
     STATUS_CHOICES = (
@@ -29,6 +30,7 @@ class CommonInfo(models.Model):
     class Meta:
         abstract = True
 
+
 class Rubric(CommonInfo):
 
     class Meta:
@@ -40,7 +42,7 @@ class Rubric(CommonInfo):
 
 
 class Post(CommonInfo):
-    cover = models.ImageField(upload_to='cover', max_length=200, blank=True, null=True, verbose_name='Обложка')
+    cover = models.ImageField(upload_to='blog/cover', max_length=200, blank=True, null=True, verbose_name='Обложка')
     rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Рубрика')
     slug = models.CharField(max_length=200, unique=True, verbose_name='url статьи')
     body = models.TextField(blank=True, null=True, verbose_name='Текст')
@@ -52,6 +54,9 @@ class Post(CommonInfo):
     def get_absolute_url(self):
         return reverse('blog:post_detail', args=[self.slug])
 
+    def get_jpg_url(self):
+        return utils.get_jpg_path(self.cover.url)
+
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
@@ -60,17 +65,53 @@ class Post(CommonInfo):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        # Сначала - обычное сохранение
+        super().save(*args, **kwargs)
+        
+        # Проверяем, указана ли картинка
+        if self.cover:
+            
+            self.cover.name = utils.to_webp(self.cover.path, self.cover.name)
+            filepath = self.cover.path
+            new_db_img = utils.get_rename_path(self.cover.name, self.pk)
+            new_file_name = utils.get_rename_path(filepath, self.pk)
+
+            image = PIL.Image.open(filepath)
+            width, height = image.size
+            if (width > 800 or height > 800):
+                image.thumbnail((800, 800), resample=PIL.Image.LANCZOS)
+
+            image.save(os.path.normpath(new_file_name))
+            self.cover.name = new_db_img
+            super().save(*args, **kwargs)
+            image.close()
+            utils.to_jpg(self.cover.path)
+            if filepath != new_file_name:
+                os.remove(filepath)
 
 
 class Images(models.Model):
 
+    SIZE_CHOICES = (
+        (180, '180'),
+        (300, '300'),
+        (600, '600'),
+        (800, '800')
+        )
+
     title = models.CharField(max_length=200, verbose_name='Заголовок')
+    size = models.SmallIntegerField(choices=SIZE_CHOICES, default='300')
     img = models.ImageField(upload_to='blog', verbose_name='Изображение')
     post = models.ForeignKey(Post, blank=True, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
+
+    def get_jpg_url(self):
+
+        return utils.get_jpg_path(self.img.url)
 
     def thumb(self):
         if self.img:
@@ -93,12 +134,13 @@ class Images(models.Model):
 
             image = PIL.Image.open(filepath)
             width, height = image.size
-            if (width > settings.MIDDLE_SIZE_IMAGE[0]) or (height > settings.MIDDLE_SIZE_IMAGE[1]):
-                image.thumbnail(settings.MIDDLE_SIZE_IMAGE, resample=PIL.Image.LANCZOS)
+            if (width > self.size or height > self.size):
+                image.thumbnail((self.size, self.size), resample=PIL.Image.LANCZOS)
 
             image.save(os.path.normpath(new_file_name))
-            image.close()
             self.img.name = new_db_img
             super(Images, self).save(*args, **kwargs)
+            image.close()
+            utils.to_jpg(self.img.path)
             if filepath != new_file_name:
                 os.remove(filepath)

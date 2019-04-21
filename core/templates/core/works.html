@@ -9,7 +9,7 @@
 <div class="gallery_grid">
 {% for obj in phobj %}
 <a href="{{ request.path }}{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
-  <img src="{{ obj.get_middle_thumb_url }}">
+  <img src="{{ obj.get_middle_thumb_jpg_url }}" srcset="{{ obj.get_middle_thumb_url }}" alt="фото">
 </a>
 {% endfor %}
 </div>
