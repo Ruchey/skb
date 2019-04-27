@@ -22,9 +22,9 @@
       {% if item.height1 %}<tr><th>Высота: </th><td itemprop="height">{{ item.height1 }}-{{ item.height2 }}</td><td>мм</td></tr>{% endif %}
       {% if item.width1 %}<tr><th>Ширина: </th><td itemprop="width">{{ item.width1 }}-{{ item.width2 }}</td><td>мм</td></tr>{% endif %}
       {% if item.depth %}<tr><th>Глубина:</th><td itemprop="depth">{{ item.depth }}</td><td>мм</td></tr>{% endif %}
-      <tr><th>Артикул:</th><td itemprop="productID">{{ item.article }}</td></tr>
+      <tr><th>Артикул:</th><td>{{ item.article }}</td></tr>
       {% if item.price > 0 %}
-      {% if item.price %}<tr><th>Цена от:</th><td itemprop="price">{{ item.price }}</td><td>руб.</td></tr>{% endif %}
+      {% if item.price %}<tr><th>Цена от:</th><td>{{ item.price }}</td><td>руб.</td></tr>{% endif %}
       {% endif %}
     </table>
     <br>
