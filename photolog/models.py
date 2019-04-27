@@ -36,7 +36,7 @@ class PhotoObject(models.Model):
 
     catalog = models.ForeignKey(Catalog, blank=True, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, verbose_name='Название')
-    description = models.TextField(max_length=1024, blank=True, null=True, verbose_name='Описание')
+    description = models.TextField(max_length=3000, blank=True, null=True, verbose_name='Описание')
     keywords = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ключевые слова')
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
