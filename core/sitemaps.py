@@ -75,7 +75,6 @@ class WorksIDSitemap(Sitemap):
         for cat in catalogs:
             cat_id.append(cat.pk)
         objs = PhotoObject.objects.filter(catalog__in=cat_id)
-
         return objs
 
     def location(self, item):

@@ -1,0 +1,20 @@
+{
+  "short_name": "К-Мебель",
+  "name": "К-Мебель",
+  "icons": [
+    {
+      "src": "/static/core/favicon-96x96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/static/core/favicon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#575c62",
+  "display": "standalone",
+  "theme_color": "#575c62"
+}

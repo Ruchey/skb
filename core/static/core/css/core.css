@@ -462,6 +462,10 @@ table {
   border: 1px solid rgb(255, 255, 255);
 }
 
+#description {
+  text-align: center;
+}
+
 .contact {
   width: 50%;
 }
