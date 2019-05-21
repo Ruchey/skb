@@ -11,7 +11,10 @@
   <div class="tile-part">
     <a href="{{ base.get_absolute_url }}" class="unit-link" tabindex="{{ forloop.counter }}" aria-label="Подробно про {{ base.article }}"></a>
     <figure>
-      <img class="tile-cover" src="{{ base.phobj.get_middle_thumb_jpg_url }}" alt="" srcset="{{ base.phobj.get_middle_thumb_url }}">
+      <picture class="tile-cover">
+        <source srcset="{{ base.phobj.get_middle_thumb_url }}" type="image/webp">
+        <img class="tile-cover" src="{{ base.phobj.get_middle_thumb_jpg_url }}" alt="картинка">
+      </picture>
       <figcaption>
         <strong>Артикул: {{ base.article }}</strong>
         {% if base.height1 or base.width1 or base.depth %}<table>

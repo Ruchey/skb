@@ -8,8 +8,12 @@
 <div class="contrast">{{ partition.content|safe }}</div>
 <div class="gallery_grid">
 {% for obj in phobj %}
-<a href="{{ request.path }}{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
-  <img src="{{ obj.get_middle_thumb_jpg_url }}" srcset="{{ obj.get_middle_thumb_url }}" alt="фото">
+<a class="gallery_img_link" href="{{ request.path }}{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
+  <picture>
+    <source srcset="{{ obj.get_middle_thumb_url }}" type="image/webp">
+    <img class="gallery_grid_img" src="{{ obj.get_middle_thumb_jpg_url }}" alt="фото">
+  </picture>
+  <span class="manyfoto"></span>
 </a>
 {% endfor %}
 </div>

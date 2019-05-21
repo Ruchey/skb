@@ -10,7 +10,7 @@
   <div class="tile-wrap flex-row">
   {% for part in partitions %}
     <div class="tile-part">
-      <a href="{{ part.url }}" class="unit-link" tabindex="{{ forloop.counter }}"></a>
+      <a href="{{ part.url }}" class="unit-link" aria-label="{{ part.title }}"></a>
       <figure>
         <figcaption>
           <h4 class="headline">{{ part.title|safe }}</h4>
@@ -19,7 +19,10 @@
           {% endif %}
           <a href="{{ part.url }}" class="more">Подробнее</a>
         </figcaption>{% if part.cover %}
-        <img class="tile-cover" src="{{ part.cover_url_jpg }}" alt="" srcset="{{ part.cover.url }}">{% endif %}
+        <picture class="tile-cover">
+          <source srcset="{{ part.cover.url }}" type="image/webp">
+          <img class="tile-cover" src="{{ part.cover_url_jpg }}" alt="{{ part.title|safe }}">{% endif %}
+        </picture>
       </figure>
     </div>
   {% endfor %}

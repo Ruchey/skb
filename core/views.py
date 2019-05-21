@@ -137,6 +137,7 @@ class WorksItemView(generic.DetailView):
         
         id = self.kwargs.get('pk')
         context['images'] = PhotoObject.objects.get(pk=id).images_set.all()
+        # import pdb; pdb.set_trace()
         return context
 
 

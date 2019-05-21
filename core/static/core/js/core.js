@@ -76,9 +76,10 @@ function ajaxPOST(url, data, callback) {
 // Замена url картинки в просмотре
 function changeSlide(data, id) {
   var img = document.getElementById("slide");
+  var img_src = document.getElementById("slide_src");
   imgs = JSON.parse(data);
   img.src = imgs.jpg;
-  img.srcset = imgs.webp;
+  img_src.srcset = imgs.webp;
   img.dataset.img_id = id;
   var thumb_active = document.querySelector(`[class="thumb-active"][rel="thumb"]`);
   if (thumb_active) {
