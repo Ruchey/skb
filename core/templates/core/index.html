@@ -6,7 +6,7 @@
  <h1 class="main_title contrast">Шкафы-купе . Гардеробные . Шкафы платяные</h1>
  <h2 class="main_title contrast">на заказ в Белгороде</h2>
 
-<section>
+<div>
   <div class="tile-wrap flex-row">
   {% for part in partitions %}
     <div class="tile-part">
@@ -27,8 +27,8 @@
     </div>
   {% endfor %}
   </div>
-</section>
-<section>
+</div>
+<div>
   <div class="howwork flex-column contrast">
     <h2>Как мы работаем</h2>
     <div class="flex-row">
@@ -54,11 +54,11 @@
       </figure>
     </div>
   </div>
-</section>
-<section>
+</div>
+<div>
   {{ main_content|safe }}
-</section>
-<section>
+</div>
+<div>
   <h2 class="full-width contrast">Напишите нам, что бы рассчитать проект.</h2>
 <div class="flex-row">
   <div class="tile contrast">
@@ -75,5 +75,5 @@
     <button class="btn" type="image">Отправить</button>
   </form>
 </div>
-</section>
+</div>
 {% endblock %}
