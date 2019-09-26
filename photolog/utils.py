@@ -1,8 +1,28 @@
 from django.conf import settings
-from PIL import Image, ImageEnhance
+from PIL import Image, ImageEnhance, ExifTags
 import os
 
-import time
+
+def rotate_by_exif(image):
+    """Поворачивает картинку по информации из EXIF, если она есть
+    image - объект картинка 
+
+    """
+    if hasattr(image._getexif(), 'items') is False:
+        return image
+    for orient in ExifTags.TAGS.keys():
+        if ExifTags.TAGS[orient] == 'Orientation':
+            break
+    exif=dict(image._getexif().items())
+
+    if exif[orient] == 3:
+        image = image.rotate(180, expand = True)
+    elif exif[orient] == 6:
+        image = image.rotate(270, expand = True)
+    elif exif[orient] == 8:
+        image = image.rotate(90, expand = True)
+    return image
+
 
 def get_box_thumb(image, TIS):
     """
@@ -10,7 +30,6 @@ def get_box_thumb(image, TIS):
     TIS - THUMB_IMAGE_SIZE (50, 50)
 
     """
-    st = time.time()
     img_w, img_h = image.size
     min_size = min(img_w, img_h)
     left = int((img_w-min_size)/2)
@@ -18,12 +37,11 @@ def get_box_thumb(image, TIS):
     box = (left, upper, left+min_size, upper+min_size)
     image = image.crop(box)
     image.thumbnail(TIS, resample=Image.LANCZOS)
-    print('get_box_thumb {}'.format(time.time()-st))
     return image
 
 
 def get_rename_path(path, newname):
-    '''Возвращает путь к переименованному файлу'''
+    """Возвращает путь к переименованному файлу"""
 
     ext = os.path.splitext(path)[1]
     dirpath = os.path.dirname(path)
@@ -31,7 +49,7 @@ def get_rename_path(path, newname):
 
 
 def get_prefix_path(path, prefix='tmb'):
-    '''Возвращает путь к превюшки'''
+    """Возвращает путь к превюшки"""
 
     split = os.path.splitext(path)
     dirname, ext = split
@@ -46,7 +64,6 @@ def add_watermark(image, watermark_path=settings.WATERMARK_PATH, opacity=0.6, op
     opacity - прозрачность
 
     """
-    st = time.time()
     watermark = Image.open(watermark_path)
 
     img_w, img_h = image.size
@@ -79,13 +96,10 @@ def add_watermark(image, watermark_path=settings.WATERMARK_PATH, opacity=0.6, op
     y2 = wat_h
     for x in range(0, img_w, wat_w2):
         layer.paste(watermark2, (x, y2))
-    print('add_watermark {}'.format(time.time()-st))
     return Image.composite(layer,  image,  layer)
 
 def to_webp(path, name):
-    '''Конвертация картинки в формат WebP'''
-
-    st = time.time()
+    """Конвертация картинки в формат WebP"""
 
     dirname = os.path.dirname(path)
     newpath = os.path.join(dirname, 'tmp.webp')
@@ -94,15 +108,15 @@ def to_webp(path, name):
     newname = os.path.join(dirname, 'tmp.webp')
     
     img = Image.open(path)
+    img = rotate_by_exif(img)
     img.save(newpath, "WEBP", quality=90)
     os.remove(path)
 
-    print('to_webp {}_{}'.format(time.time()-st, path))
 
     return newname
 
 def get_jpg_path(path, folder='JPG'):
-    '''Получить путь к файлу в формате JPG'''
+    """Получить путь к файлу в формате JPG"""
 
     dir, filename = os.path.split(path)
     newdir = os.path.join(dir, folder)
@@ -113,9 +127,7 @@ def get_jpg_path(path, folder='JPG'):
     return newpath
 
 def to_jpg(path, folder='JPG'):
-    '''Сохранение картинки в формате jpg в указанную папку'''
-
-    st = time.time()
+    """Сохранение картинки в формате jpg в указанную папку"""
 
     dir, filename = os.path.split(path)
     newdir = os.path.join(dir, folder)
@@ -124,12 +136,10 @@ def to_jpg(path, folder='JPG'):
 
     newpath = get_jpg_path(path, folder)
     img = Image.open(path)
+    img = rotate_by_exif(img)
     if img.mode == 'RGBA':
         background = Image.new('RGBA', img.size, (242,242,242))
         img = Image.alpha_composite(background, img)
         img = img.convert('RGB')
     img.save(newpath, quality=100)
-
-    print('to_jpg {}_{}'.format(time.time()-st, path))
-
     return newpath
