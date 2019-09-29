@@ -58,6 +58,7 @@ class BasicView(PartitionsView):
             bases = models.StandardModel.objects.all().filter(prod_type=filter)
             context = super().get_context_data(**kwargs)
             context['bases'] = bases
+            import pdb; pdb.set_trace()
             return context
         except Exception as e:
             raise
