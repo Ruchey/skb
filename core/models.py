@@ -77,10 +77,11 @@ class CommonInfo(models.Model):
 
 
 class HomePage(models.Model):
-    '''Данные для главной страницы'''
+    """Данные для главной страницы"""
 
     main_content = models.TextField(blank=True, verbose_name='Основной текст')
     send_content = models.TextField(blank=True, verbose_name='Текст для "Напишите нам"')
+    catalog = models.ManyToManyField(Catalog, blank=True, verbose_name='Случайные фото из каталогов')
     publish = models.BooleanField(default=False, verbose_name='Опубликовать')
     objects = models.Manager()
     published = PublishedHomePageManager()
@@ -88,6 +89,12 @@ class HomePage(models.Model):
     class Meta:
         verbose_name = 'Данные главной страницы'
         verbose_name_plural = 'Данные главной страницы'
+
+    def html_main(self):
+        return format_html(self.main_content)
+
+    def html_send(self):
+        return format_html(self.send_content)
 
 
 class Partitions(CommonInfo):
@@ -152,7 +159,7 @@ class Partitions(CommonInfo):
 
     
 class MaterialsType(models.Model):
-    '''Тип материалов'''
+    """Тип материалов"""
 
     title = models.CharField('Название', max_length=200)
 
@@ -165,7 +172,7 @@ class MaterialsType(models.Model):
 
 
 class Materials(models.Model):
-    '''Материалы для корпуса и вставок'''
+    """Материалы для корпуса и вставок"""
 
     title = models.CharField('Название', max_length=200)
     logo = models.ImageField('Картинка', upload_to='logos', blank=True, null=True)
@@ -188,7 +195,7 @@ class Materials(models.Model):
 
 
 class ProductType(models.Model):
-    '''Типы изделий'''
+    """Типы изделий"""
 
     slug = models.SlugField(primary_key=True, max_length=200, verbose_name='Заголовок в URL')
     title = models.CharField(max_length=200, verbose_name='Тип изделия')

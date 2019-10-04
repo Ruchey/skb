@@ -6,7 +6,7 @@
  <h1 class="main_title contrast">Шкафы-купе . Гардеробные . Шкафы платяные</h1>
  <h2 class="main_title contrast">на заказ в Белгороде</h2>
 
-<div>
+<section>
   <div class="tile-wrap flex-row">
   {% for part in partitions %}
     <div class="tile-part">
@@ -27,10 +27,24 @@
     </div>
   {% endfor %}
   </div>
-</div>
-<div>
+</section>
+<section>
+  <h2 class="sechead">Некоторые наши работы</h2>
+  <div class="latestworks">
+    {% for obj in randphobj %}
+    <a class="gallery_img_link" href="/works/{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
+      <picture>
+        <source srcset="{{ obj.get_middle_thumb_url }}" type="image/webp">
+        <img class="gallery_grid_img" src="{{ obj.get_middle_thumb_jpg_url }}" alt="фото">
+      </picture>
+      <span class="manyfoto"></span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+<section>
   <div class="howwork flex-column contrast">
-    <h2>Как мы работаем</h2>
+    <h2 class="sechead">Как мы работаем</h2>
     <div class="flex-row">
       <figure>
         <svg class="icon-hw" width="100px" height="100px"><use xlink:href="{% static 'core/img/icons.svg' %}#chat" /></svg>
@@ -54,11 +68,11 @@
       </figure>
     </div>
   </div>
-</div>
-<div>
+</section>
+<article>
   {{ main_content|safe }}
-</div>
-<div>
+</article>
+<section>
   <h2 class="full-width contrast">Напишите нам, что бы рассчитать проект.</h2>
 <div class="flex-row">
   <div class="tile contrast">
@@ -75,5 +89,5 @@
     <button class="btn" type="image">Отправить</button>
   </form>
 </div>
-</div>
+</section>
 {% endblock %}

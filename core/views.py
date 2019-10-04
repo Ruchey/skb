@@ -1,3 +1,5 @@
+import random
+
 from photolog.models import PhotoObject
 from django.views import generic, View
 from django import http
@@ -5,6 +7,17 @@ from . import models
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+
+
+def unpack_catalogs(catalogs):
+    """Распаковка содержимого каталогов в один список
+    Возвращает список фотообъектов
+    """
+
+    photoobjects = []
+    for cat in catalogs:
+        photoobjects.extend(cat.photoobject_set.all())
+    return photoobjects
 
 
 class IndexView(generic.ListView):
@@ -15,10 +28,14 @@ class IndexView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        c = models.HomePage.published.first()
-        if c:
-            context['main_content'] = c.main_content
-            context['send_content'] = c.send_content
+        data = models.HomePage.published.first()
+        if data:
+            context['main_content'] = data.main_content
+            context['send_content'] = data.send_content
+            catalogs = data.catalog.all()
+            photoobjects = unpack_catalogs(catalogs)
+            context['randphobj'] = random.sample(photoobjects, k = 4)
+
         return context
 
 
@@ -49,7 +66,7 @@ class PartitionsView(generic.base.TemplateView):
 
 
 class BasicView(PartitionsView):
-    '''Вывод базовых модулей'''
+    """Вывод базовых модулей"""
 
     def get_context_data(self, **kwargs):
 
@@ -64,7 +81,7 @@ class BasicView(PartitionsView):
 
 
 class BasicItemView(generic.DetailView):
-    '''Вывод подробностей базового модуля'''
+    """Вывод подробностей базового модуля"""
     
     model = models.StandardModel
     template_name = 'core/basic_item.html'
@@ -95,7 +112,7 @@ class BasicItemView(generic.DetailView):
 
 
 class WorksView(PartitionsView):
-    '''Вывод альбома работ'''
+    """Вывод альбома работ"""
 
     def get_context_data(self, **kwargs):
 
@@ -103,11 +120,9 @@ class WorksView(PartitionsView):
         try:
             obj = self.get_obj()
             catalogs = obj.catalog.all()
-            photoobjects = []
             phobj_id = []
+            photoobjects = unpack_catalogs(catalogs)
             
-            for cat in catalogs:
-                photoobjects.extend(cat.photoobject_set.all())
             for obj in photoobjects:
                 phobj_id.append(obj.pk)
 
@@ -123,9 +138,9 @@ class WorksView(PartitionsView):
 
 
 class WorksItemView(generic.DetailView):
-    '''Формируем окно просмотра картинки
+    """Формируем окно просмотра картинки
         из каталога с описанием
-    '''
+    """
     model = PhotoObject
     template_name = 'core/gallery_item_view_ajax.html'
     context_object_name = 'item'
