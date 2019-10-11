@@ -36,6 +36,12 @@ class IndexView(generic.ListView):
             context['randphobj'] = random.sample(photoobjects, k = 4)
             context['url_type'] = 'ajax'
             context['url_get'] = '/works/'
+            phobj_id = []
+            for obj in context['randphobj']:
+                phobj_id.append(obj.pk)
+            context['context_list'] = phobj_id
+            context['current_photoobj'] = phobj_id[0]
+
 
         return context
 

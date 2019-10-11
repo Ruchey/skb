@@ -5,7 +5,9 @@
 
 {% block content %}
 <h1 class="main_title">{{ partition.title|safe }}</h1>
+<br>
 <div>{{ partition.content|safe }}</div>
+<br>
 <div class="gallery_grid">
 {% for obj in phobj %}
 <a class="gallery_img_link" href="{{ request.path }}{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
