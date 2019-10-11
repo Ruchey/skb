@@ -33,15 +33,17 @@ class IndexView(generic.ListView):
             context['data'] = data
             catalogs = data.catalog.all()
             photoobjects = unpack_catalogs(catalogs)
-            context['randphobj'] = random.sample(photoobjects, k = 4)
+            if len(photoobjects) > 3:
+                context['randphobj'] = random.sample(photoobjects, k = 4)
+            else:
+                context['randphobj'] = photoobjects
             context['url_type'] = 'ajax'
             context['url_get'] = '/works/'
             phobj_id = []
             for obj in context['randphobj']:
                 phobj_id.append(obj.pk)
             context['context_list'] = phobj_id
-            context['current_photoobj'] = phobj_id[0]
-
+            context['current_photoobj'] = phobj_id[0] if phobj_id else None
 
         return context
 
@@ -137,7 +139,7 @@ class WorksView(PartitionsView):
             context['context_list'] = phobj_id
             context['url_type'] = 'ajax'
             context['url_get'] = '/works/'
-            context['current_photoobj'] = phobj_id[0]
+            context['current_photoobj'] = phobj_id[0] if phobj_id else None
             return context
         except:
             pass

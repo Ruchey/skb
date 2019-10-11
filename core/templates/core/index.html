@@ -32,7 +32,7 @@
 </section>
 <article>
   {{ data.main_content|safe }}
-</article>
+</article>{% if randphobj %}
 <section>
   <h2 class="sechead">Некоторые наши работы</h2>
   <div class="wrap-cards">
@@ -53,7 +53,7 @@
     </a>
     {% endfor %}
   </div>
-</section>
+</section>{% endif %}
 <section>
   <div class="howwork flex-column">
     <h2 class="sechead">Как мы работаем</h2>
