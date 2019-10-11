@@ -30,11 +30,12 @@ class IndexView(generic.ListView):
         context = super().get_context_data(**kwargs)
         data = models.HomePage.published.first()
         if data:
-            context['main_content'] = data.main_content
-            context['send_content'] = data.send_content
+            context['data'] = data
             catalogs = data.catalog.all()
             photoobjects = unpack_catalogs(catalogs)
             context['randphobj'] = random.sample(photoobjects, k = 4)
+            context['url_type'] = 'ajax'
+            context['url_get'] = '/works/'
 
         return context
 

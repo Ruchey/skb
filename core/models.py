@@ -82,6 +82,8 @@ class HomePage(models.Model):
     main_content = models.TextField(blank=True, verbose_name='Основной текст')
     send_content = models.TextField(blank=True, verbose_name='Текст для "Напишите нам"')
     catalog = models.ManyToManyField(Catalog, blank=True, verbose_name='Случайные фото из каталогов')
+    keywords = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ключевые слова')
+    description = models.TextField(max_length=3000, blank=True, null=True, verbose_name='Описание')
     publish = models.BooleanField(default=False, verbose_name='Опубликовать')
     objects = models.Manager()
     published = PublishedHomePageManager()

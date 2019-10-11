@@ -26,7 +26,7 @@ class PhotoObjectAdmin(admin.ModelAdmin):
     list_display = ('pk','thumb', 'title', 'catalog', 'pub_date')
     fieldsets = [
         (None, 
-            {'fields': ('title', 'keywords', 'catalog', 'description')}),
+            {'fields': ('title', 'keywords', 'shortdesc', 'description', 'catalog')}),
     ]
     date_hierarchy = 'pub_date'
     ordering = ('pub_date', 'catalog')

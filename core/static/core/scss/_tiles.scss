@@ -1,0 +1,115 @@
+// Настройка стикеров
+.tile-wrap {
+  width: 100%;
+}
+.tile-part {
+  position: relative;
+  margin: 5px;
+  flex: 1 0 290px;
+  width: 100%;
+  height: 500px;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: $tile-part-color;
+  &:hover {
+    box-shadow: $tile-part-hov-color 0 0 10px 0px;
+  }
+  figure {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
+  figcaption {
+    font-size: 22px;
+    text-align: center;
+    align-self: center;
+    z-index: 1;
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+.tile-cover {
+  height: 100%;
+  width: 100%;
+  flex: 1 1 0px;
+  object-fit: contain;
+  overflow: hidden;
+}
+a.unit-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+.headline {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.125;
+  font-weight: 600;
+  letter-spacing: .004em;
+}
+.subhead {
+  margin: 5px 0;
+  font-size: 19px;
+  line-height: 1.21053;
+  font-weight: 400;
+  letter-spacing: .012em;
+}
+a.more {
+  position: relative;
+  color: $more-color;
+  font-size: 17px;
+  font-weight: 400;
+  z-index: 4;
+  &::after {
+    content: " \203A";
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.bg-top {
+  background-position: top;
+}
+.bg-bot {
+  background-position: bottom;
+}
+.grid140 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 140px);
+  grid-template-rows: repeat(auto-fit, 140px);
+  grid-gap: 5px;
+  justify-content: center;
+  box-sizing: border-box;
+}
+table {
+  width: 100%;
+  text-align: left;
+}
+.table_item {
+  width: 260px;
+  border-collapse: collapse;
+  margin: 0 auto;
+  tr {
+    &:nth-child(3) {
+      border-bottom: solid thin;
+    }
+  }
+}
+.sticker2 {
+  height: 495px;
+}
+.lable2 {
+  height: 150px;
+  font-size: 20px;
+  justify-content: space-around;
+}

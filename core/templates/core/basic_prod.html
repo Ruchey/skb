@@ -4,8 +4,8 @@
 {% block title %}{{ partition.title }}{% endblock %}
 
 {% block content %}
-<h1 class="main_title contrast">{{ partition.title|safe }}</h1>
-<div class="contrast">{{ partition.content|safe }}</div>
+<h1 class="main_title">{{ partition.title|safe }}</h1>
+<div>{{ partition.content|safe }}</div>
 <div class="tile-wrap flex-row">
 {% for base in bases %}
   <div class="tile-part">

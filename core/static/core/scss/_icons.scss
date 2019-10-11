@@ -1,0 +1,60 @@
+// Иконки
+svg.vk {
+  background-color: rgb(75, 115, 156);
+  fill: rgb(255, 255, 255);
+  border-radius: 3px;
+}
+svg.ok {
+  background-color: #E80;
+  fill: rgb(255, 255, 255);
+  border-radius: 3px;
+}
+svg.fb {
+  background-color: rgb(51, 85, 153);
+  fill: rgb(255, 255, 255);
+  border-radius: 3px;
+}
+svg.icon-nav {
+  width: 1em;
+  height: 1em;
+  fill: rgb(255, 255, 255);
+  filter: drop-shadow( 0px 1px 1px grey );
+  &:hover {
+    fill: red;
+    filter: drop-shadow( 0px 4px 3px grey );
+    transition: 0.1s;
+  }
+}
+svg.close {
+  position: absolute;
+  cursor: pointer;
+  top: 3px;
+  right: 3px;
+  font-size: 2em;
+  fill: rgb(34, 51, 51);
+  &:hover {
+    filter: drop-shadow( 0px 4px 2px white );
+  }
+}
+svg.icon-left {
+  position: absolute;
+  top: 40%;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  left: 0;
+}
+svg.icon-right {
+  position: absolute;
+  top: 40%;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  right: 0;
+}
+svg.icon-hw {
+  width: 5em;
+  height: 5em;
+  fill: rgb(85, 85, 102);
+  filter: drop-shadow( 0px 1px 1px grey );
+}

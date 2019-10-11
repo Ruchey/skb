@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% block linkcss %}<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}" />{% endblock %}
 {% block description %}{{ post_detail.description }}{% endblock %}
 {% block keywords %}{{ post_detail.keywords }}{% endblock %}
 {% block title %}{{ post_detail.title }}{% endblock %}
