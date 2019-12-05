@@ -5,7 +5,7 @@
 .tile-part {
   position: relative;
   margin: 5px;
-  flex: 1 0 290px;
+  flex: 1 0 310px;
   width: 100%;
   height: 500px;
   box-sizing: border-box;
@@ -41,6 +41,29 @@
   flex: 1 1 0px;
   object-fit: contain;
   overflow: hidden;
+}
+.tile-textblock {
+  position: relative;
+  margin: 5px;
+  flex: 1 0 310px;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: $tile-part-color;
+  h2, h3, h4, h5 {
+    text-align: left;
+    padding: 5px 0;
+    border-bottom: 1px solid $header-color;
+  }
+  p {
+    padding: 5px 0;
+    text-align: justify;
+    text-indent: 20px;
+  }
+  a {
+    color: #6c17b9;
+  }
 }
 a.unit-link {
   position: absolute;

@@ -1,6 +1,15 @@
+from django import forms
 from django.contrib import admin
+from ckeditor.widgets import CKEditorWidget
 
 from .models import Catalog, PhotoObject, Images
+
+
+class PostAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorWidget())
+    class Meta:
+        model = PhotoObject
+        fields = ('description',)
 
 
 class ImagesInline(admin.TabularInline):
@@ -32,6 +41,7 @@ class PhotoObjectAdmin(admin.ModelAdmin):
     ordering = ('pub_date', 'catalog')
     list_filter = ('pub_date', 'catalog')
     list_display_links = ('thumb',)
+    form = PostAdminForm
 
 
 @admin.register(Catalog)
