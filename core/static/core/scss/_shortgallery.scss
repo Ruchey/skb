@@ -45,10 +45,12 @@
 .card-img {
   height: 320px;
   width: 260px;
+  @include tileborder;
   img {
     object-fit: cover;
     width: 100%;
     height: 100%;
+    @include tileborder;
   }
 }
 
@@ -59,4 +61,5 @@
   overflow: hidden;
   box-sizing: border-box;
   background-color: $tile-part-color;
+  @include tileborder;
 }

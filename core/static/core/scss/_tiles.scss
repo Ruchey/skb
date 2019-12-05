@@ -1,16 +1,43 @@
-// Настройка стикеров
-.tile-wrap {
-  width: 100%;
+@mixin tileborder {
+  box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+  border-radius: 4px;
 }
-.tile-part {
+
+@mixin tileprop {
   position: relative;
   margin: 5px;
   flex: 1 0 310px;
   width: 100%;
-  height: 500px;
   box-sizing: border-box;
+  @include tileborder;
   padding: 10px;
   background-color: $tile-part-color;
+}
+
+// Настройка стикеров
+.tile-wrap {
+  width: 100%;
+}
+.tile-textblock {
+  height: auto;
+  @include tileprop;
+  h2, h3 {
+    text-align: left;
+    padding: 5px 0;
+    border-bottom: 1px solid #e7e8ec;
+  }
+  p {
+    padding: 5px 0;
+    text-align: justify;
+    text-indent: 20px;
+  }
+  a {
+    color: #6c17b9;
+  }
+}
+.tile-part {
+  height: 500px;
+  @include tileprop;
   &:hover {
     box-shadow: $tile-part-hov-color 0 0 10px 0px;
   }
@@ -41,29 +68,6 @@
   flex: 1 1 0px;
   object-fit: contain;
   overflow: hidden;
-}
-.tile-textblock {
-  position: relative;
-  margin: 5px;
-  flex: 1 0 310px;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  padding: 10px;
-  background-color: $tile-part-color;
-  h2, h3, h4, h5 {
-    text-align: left;
-    padding: 5px 0;
-    border-bottom: 1px solid $header-color;
-  }
-  p {
-    padding: 5px 0;
-    text-align: justify;
-    text-indent: 20px;
-  }
-  a {
-    color: #6c17b9;
-  }
 }
 a.unit-link {
   position: absolute;
