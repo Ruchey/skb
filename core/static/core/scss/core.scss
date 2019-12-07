@@ -7,13 +7,15 @@ $tile-part-color: #fff;
 $tile-part-br-color: #cecece;
 $tile-part-hov-color: #bbbbbb;
 $more-color: rgb(0, 109, 199);
+$header-height: 50px;
 
 
+html {
+  font-size: 17px;
+}
 * {
   margin: 0;
   padding: 0;
-  border: black;
-  border-width: thin;
   font-family: "DIN2014","Helvetica",sans-serif;
 }
 ol {
@@ -40,15 +42,15 @@ ul {
 //---------------------------------------------
 body {
   background-color: $body-color;
-  font-size: 100%;
+  font-size: 1rem;
   font-weight: lighter;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05rem;
   height: 100vh;
   display: flex;
   flex-flow: column nowrap;
 }
 header {
-  flex: 0 0 50px;
+  flex: 0 0 $header-height;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -57,24 +59,24 @@ header {
   position: relative;
   z-index: 9999;
   width: 100%;
-  height: 50px;
+  height: $header-height;
   padding: 2px 0;
   box-sizing: border-box;
   top: 0;
   address {
-    font-size: 14px;
+    font-size: 0.8rem;
   }
 }
 main {
   flex: 1 0 auto;
-  margin: 10px 0;
+  margin: 0;
 }
 footer {
   flex: 0 0 auto;
   background-color: $footer-color;
   font-weight: lighter;
   .menu {
-    font-size: 13px;
+    font-size: 0.8rem;
     li {
       a {
         color: $link-color;
@@ -90,7 +92,7 @@ footer {
 }
 .footer-box {
   padding: 20px 0 35px 20px;
-  font-size: 1em;
+  font-size: 1rem;
   display: table-cell;
   vertical-align: top;
   color: white;
@@ -98,7 +100,7 @@ footer {
 .container {
   margin: 0 auto;
   padding: 0;
-  max-width: 1650px;
+  max-width: 1920px;
   height: 100%;
 }
 a {
@@ -115,7 +117,7 @@ nav {
   flex-flow: row wrap;
   align-items: flex-end;
   align-self: flex-end;
-  font-size: 20px;
+  font-size: 1.2rem;
   a {
     color: $link-color;
     margin: 0 10px;
@@ -168,13 +170,60 @@ nav {
 }
 @import "tiles";
 //---------------------------------------------
+.preview {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  top: -$header-height;
+  overflow: hidden;
+}
+.headbg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.preview-content {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  position: absolute;
+  padding: calc(#{$header-height} + 10vh) 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f600ff3b;
+}
+.head_slogon {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 1rem 0;
+  color: #fff;
+}
+.headlogo {
+  height: 20vh;
+  background-color: #ffffffc0;
+  padding: 1rem;
+}
+.bt {
+  border: 1px solid #fff;
+  border-radius: 4px;
+  padding: 0.5rem;
+  text-transform: uppercase;
+  color: #fff;
+  transition: 0.5s;
+&:hover {
+    background-color: #fff;
+    color: #000;
+    transition: 0.5s;
+  }
+}
 // Галлерея на сетках
 .gallery_grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 260px);
   grid-template-rows: repeat(auto-fit, 320px);
   grid-gap: 5px;
-  justify-content: space-between;
+  justify-content: center;
   box-sizing: border-box;
 }
 .gallery_img_link {
@@ -202,7 +251,7 @@ span.manyfoto {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: lighter;
-  font-size: 32px;
+  font-size: 2rem;
   width: 330px;
   height: 70px;
   margin: 15px 0;
@@ -218,14 +267,14 @@ span.manyfoto {
     height: auto;
     margin: 10px;
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
   }
   div {
     width: auto;
-    justify-content: space-between;
+    justify-content: center;
   }
   figcaption {
-    font-size: 16px;
+    font-size: 1rem;
     text-align: center;
     bottom: 0;
   }
@@ -233,7 +282,7 @@ span.manyfoto {
 .sechead {
   letter-spacing: 0.1em;
   font-weight: lighter;
-  font-size: 32px;
+  font-size: 2rem;
   text-align: center;
   margin: 10px 0 10px 0;
   color: $txt-color;

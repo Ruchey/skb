@@ -5,9 +5,18 @@
 {% block title %}К-МЕБЕЛЬ|Главная{% endblock %}
 
 {% block content %}
- <h1 class="main_title">Шкафы-купе . Гардеробные . Шкафы платяные</h1>
- <h2 class="main_title">на заказ в Белгороде</h2>
-
+<div class="preview">
+  <div class="preview-content">
+    <img class="headlogo" src="{% static 'core/img/logo_b.svg' %}" alt="logo">
+    <span class="head_slogon">on-line салон мебели на заказ в Белгороде</span>
+    <a href="#contact" class="bt">Расчитать проект</a>
+  </div>
+  <picture>
+    <source srcset="{% static 'core/img/KM_preview.webp' %}" type="image/webp">
+    <img class="headbg" src="{% static 'core/img/KM_preview.webp' %}" alt="Обложка">
+  </picture>
+</div>
+  <h1 class="main_title">Шкафы-купе . Гардеробные . Двери-купе</h1>
 <section>
   <div class="tile-wrap flex-row">
   {% for part in partitions %}

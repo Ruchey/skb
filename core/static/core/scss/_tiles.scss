@@ -52,7 +52,7 @@
     overflow: hidden;
   }
   figcaption {
-    font-size: 22px;
+    font-size: 1.2rem;
     text-align: center;
     align-self: center;
     z-index: 1;
@@ -79,14 +79,14 @@ a.unit-link {
 }
 .headline {
   margin: 0;
-  font-size: 32px;
+  font-size: 2rem;
   line-height: 1.125;
   font-weight: 600;
   letter-spacing: .004em;
 }
 .subhead {
   margin: 5px 0;
-  font-size: 19px;
+  font-size: 1.2rem;
   line-height: 1.21053;
   font-weight: 400;
   letter-spacing: .012em;
@@ -94,7 +94,7 @@ a.unit-link {
 a.more {
   position: relative;
   color: $more-color;
-  font-size: 17px;
+  font-size: 1rem;
   font-weight: 400;
   z-index: 4;
   &::after {
@@ -137,6 +137,6 @@ table {
 }
 .lable2 {
   height: 150px;
-  font-size: 20px;
+  font-size: 1.3rem;
   justify-content: space-around;
 }

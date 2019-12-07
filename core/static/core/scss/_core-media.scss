@@ -21,7 +21,7 @@
     }
   }
 }
-@media (max-width: 770px) {
+@media (max-width: 640px) {
   .nav-burger {
     display: block;
     display: block;
@@ -48,7 +48,7 @@
       display: block;
       height: 56px;
       color: #fff;
-      font-size: 22px;
+      font-size: 1.2rem;
       line-height: 56px;
       text-align: center;
       text-transform: uppercase;
@@ -81,4 +81,5 @@
       }
     }
   }
+
 }
