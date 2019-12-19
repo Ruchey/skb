@@ -1,3 +1,4 @@
+*.bak
 *.egg-info
 *.pot
 *.py[co]
@@ -7,3 +8,5 @@ local_settings.py
 db.sqlite3
 /media/
 .sass-cache/
+venv37/
+env37/

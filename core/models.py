@@ -63,6 +63,13 @@ class DefInfo(models.Model):
     def __str__(self):
         return self.ph
 
+class CommonPublishSort(models.Model):
+    'Абстрактная модель для сортировки и публикации'
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft', verbose_name='Статус')
+    sort = models.PositiveSmallIntegerField(default=1, verbose_name='Порядок')
+
+    class Meta:
+        abstract = True
 
 class CommonInfo(models.Model):
     'Абстрактная модель для общих полей'
@@ -70,7 +77,6 @@ class CommonInfo(models.Model):
     title = models.CharField(max_length=200, verbose_name='Заголовок')
     description = models.CharField(max_length=160, blank=True, null=True, verbose_name='Краткое описание')
     keywords = models.CharField(max_length=255, blank=True, null=True, verbose_name='Ключевые слова')
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft', verbose_name='Статус')
 
     class Meta:
         abstract = True
@@ -99,7 +105,7 @@ class HomePage(models.Model):
         return format_html(self.send_content)
 
 
-class Partitions(CommonInfo):
+class Partitions(CommonInfo, CommonPublishSort):
 
     COVER = 'cover'
 
@@ -108,7 +114,6 @@ class Partitions(CommonInfo):
     content = models.TextField(blank=True, verbose_name='Содержание')
     template_name = models.CharField(max_length=70, blank=True,
                                     help_text="Пример: 'core/contact_page.html'", verbose_name='Имя шаблона')
-    sort = models.SmallIntegerField(default=1, verbose_name='Порядок')
     catalog = models.ManyToManyField(Catalog, blank=True, verbose_name='Каталоги')
     objects = models.Manager()
     published = PublishedManager()
@@ -210,7 +215,7 @@ class ProductType(models.Model):
         return self.title
 
 
-class StandardModel(models.Model):
+class StandardModel(CommonPublishSort):
     'Базовые модели изделий'
     
     title = models.CharField(max_length=200, verbose_name='Название')

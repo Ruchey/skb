@@ -11,6 +11,21 @@ import os
 import PIL
 
 
+STATUS_CHOICES = (
+    ('draft', 'Черновик'),
+    ('published', 'Опубликовано'),
+    )
+
+
+class CommonInfo(models.Model):
+    'Абстрактная модель для общих полей'
+    
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='published', verbose_name='Статус')
+    sort = models.PositiveSmallIntegerField(default=1, verbose_name='Порядок')
+
+    class Meta:
+        abstract = True
+
 
 class OverwriteStorage(FileSystemStorage):
     def get_available_name(self, name, max_length=None):
@@ -19,19 +34,20 @@ class OverwriteStorage(FileSystemStorage):
         return name
 
 
-class Catalog(models.Model):
+class Catalog(CommonInfo):
 
     title = models.CharField('Название', max_length=200)
-    
+
     class Meta:
         verbose_name = 'Каталог'
         verbose_name_plural = 'Каталоги'
+        ordering = ['sort']
         
     def __str__(self):
         return self.title
 
 
-class PhotoObject(models.Model):
+class PhotoObject(CommonInfo):
     'Фотообъект - объект, у которого больше одной фотографии'
 
     catalog = models.ForeignKey(Catalog, blank=True, null=True, on_delete=models.CASCADE)
@@ -44,6 +60,7 @@ class PhotoObject(models.Model):
     class Meta:
         verbose_name = 'Фотообъект'
         verbose_name_plural = 'Фотообъекты'
+        ordering = ['sort']
 
     def __str__(self):
         return self.title
@@ -88,10 +105,12 @@ class Images(models.Model):
 
     img = models.ImageField(upload_to='photolog', verbose_name='Изображение')
     phobj = models.ForeignKey(PhotoObject, blank=True, null=True, on_delete=models.CASCADE)
+    sort = models.PositiveSmallIntegerField(default=1, verbose_name='Порядок')
 
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
+        ordering = ['sort']
 
     def get_jpg_url(self):
 

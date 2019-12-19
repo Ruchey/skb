@@ -6,6 +6,15 @@ from django import forms
 from core import models
 
 
+def make_published(modeladmin, request, queryset):
+    queryset.update(status='published')
+make_published.short_description = "Опубликовать выбранные объекты"
+
+def make_draft(modeladmin, request, queryset):
+    queryset.update(status='draft')
+make_draft.short_description = "Снять с публикации выбранные объекты"
+
+
 @admin.register(models.User)
 class UserAdmin(BaseUserAdmin):
 
@@ -56,7 +65,7 @@ class ProductTypeAdmin(admin.ModelAdmin):
 class StandardModelAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Данные', {
-            'fields': (('title', 'article'), ('shortdesc', 'keywords'),
+            'fields': ('status', ('title', 'article'), ('shortdesc', 'keywords'),
                 'description', 'price')
             }),
         ('Конструктив', {
@@ -71,11 +80,12 @@ class StandardModelAdmin(admin.ModelAdmin):
             'fields': ('materials',)
             }),
         )
-    list_display = ('thumb', 'article', 'title', 'qdoors', 'prod_type', 'angular', 'price')
+    list_display = ('thumb', 'sort', 'status', 'article', 'title', 'qdoors', 'prod_type', 'angular', 'price')
     search_fields = ('title', 'article', 'qdoors', 'prod_type', 'angular')
     list_filter = ('qdoors', 'prod_type', 'angular')
-    list_editable = ('price',)
+    list_editable = ('price', 'sort', 'status')
     readonly_fields = ('thumb', )
+    actions = [make_published, make_draft]
 
 
 @admin.register(models.MaterialsType)

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load staticfiles %}
+{% load static %}
 {% block linkcss %}<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}" />{% endblock %}
 {% block description %}{{ post_detail.description }}{% endblock %}
 {% block keywords %}{{ post_detail.keywords }}{% endblock %}

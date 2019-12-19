@@ -14,12 +14,11 @@ def rotate_by_exif(image):
         if ExifTags.TAGS[orient] == 'Orientation':
             break
     exif=dict(image._getexif().items())
-
-    if exif[orient] == 3:
+    if exif.get(orient, 0) == 3:
         image = image.rotate(180, expand = True)
-    elif exif[orient] == 6:
+    elif exif.get(orient, 0) == 6:
         image = image.rotate(270, expand = True)
-    elif exif[orient] == 8:
+    elif exif.get(orient, 0) == 8:
         image = image.rotate(90, expand = True)
     return image
 

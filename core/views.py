@@ -5,7 +5,6 @@ from django.views import generic, View
 from django import http
 from . import models
 
-from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 
@@ -16,7 +15,7 @@ def unpack_catalogs(catalogs):
 
     photoobjects = []
     for cat in catalogs:
-        photoobjects.extend(cat.photoobject_set.all())
+        photoobjects.extend(cat.photoobject_set.all().filter(status='published'))
     return photoobjects
 
 
@@ -31,7 +30,7 @@ class IndexView(generic.ListView):
         data = models.HomePage.published.first()
         if data:
             context['data'] = data
-            catalogs = data.catalog.all()
+            catalogs = data.catalog.all().filter(status='published')
             photoobjects = unpack_catalogs(catalogs)
             if len(photoobjects) > 3:
                 context['randphobj'] = random.sample(photoobjects, k = 4)
@@ -128,7 +127,7 @@ class WorksView(PartitionsView):
         context = super().get_context_data(**kwargs)
         try:
             obj = self.get_obj()
-            catalogs = obj.catalog.all()
+            catalogs = obj.catalog.all().filter(status='published')
             phobj_id = []
             photoobjects = unpack_catalogs(catalogs)
             
@@ -143,7 +142,6 @@ class WorksView(PartitionsView):
             return context
         except:
             pass
-
 
 
 class WorksItemView(generic.DetailView):
@@ -163,10 +161,3 @@ class WorksItemView(generic.DetailView):
         context['images'] = PhotoObject.objects.get(pk=id).images_set.all()
         # import pdb; pdb.set_trace()
         return context
-
-
-def handler404(request):
-    response = render_to_response('404.html', {},
-                                  context_instance=RequestContext(request))
-    response.status_code = 404
-    return response

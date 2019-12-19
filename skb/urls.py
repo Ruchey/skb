@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.flatpages.sitemaps import FlatPageSitemap
+from django.template.response import TemplateResponse
 
 from core.sitemaps import *
 
@@ -42,6 +43,12 @@ urlpatterns = [
     path('', include('core.urls')),
 
 ]
+
+def handler404(request, exception=None):
+    response = TemplateResponse(request, '404.html', {})
+    response.status_code = 404
+    return response
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
