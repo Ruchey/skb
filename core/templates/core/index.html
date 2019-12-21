@@ -16,8 +16,8 @@
     <img class="headbg" src="{% static 'core/img/KM_preview.webp' %}" alt="Обложка">
   </picture>
 </div>
+<div class="block">
   <h1 class="main_title">Шкафы-купе . Гардеробные . Двери-купе</h1>
-<section>
   <div class="tile-wrap flex-row">
   {% for part in partitions %}
     <div class="tile-part">
@@ -38,11 +38,18 @@
     </div>
   {% endfor %}
   </div>
-</section>
-<article>
-  {{ data.main_content|safe }}
-</article>{% if randphobj %}
-<section>
+</div>
+{% if data.main_content %}
+<div class="block">
+  <section>
+    <article>
+      {{ data.main_content|safe }}
+    </article>
+  </section>
+</div>
+{% endif %}
+{% if randphobj %}
+<div class="block">
   <h2 class="sechead">Некоторые наши работы</h2>
   <div class="wrap-cards">
     {% for obj in randphobj %}
@@ -54,16 +61,17 @@
             <img src="{{ obj.get_middle_thumb_jpg_url }}" alt="фото">
           </picture>
         </div>
-        <h3 class="main_title black">{{ obj.title }}</h3>
+        <h4 class="main_title black">{{ obj.title }}</h3>
         <div class="card-desc">
-          {{ obj.description|safe|truncatewords_html:45 }}
+          {{ obj.description|safe|truncatewords_html:35 }}
         </div>
       </div>
     </a>
     {% endfor %}
   </div>
-</section>{% endif %}
-<section>
+</div>
+{% endif %}
+<div class="block">
   <div class="howwork flex-column">
     <h2 class="sechead">Как мы работаем</h2>
     <div class="flex-row">
@@ -89,8 +97,8 @@
       </figure>
     </div>
   </div>
-</section>
-<section>
+</div>
+<div class="block">
   <h2 class="full-width">Напишите нам, что бы рассчитать проект.</h2>
 <div class="flex-row">
   <div class="tile">
@@ -107,7 +115,7 @@
     <button class="btn" type="image">Отправить</button>
   </form>
 </div>
-</section>
+</div>
 <script>
   var context_list = {{ context_list }};
   var url_type = "{{ url_type }}";

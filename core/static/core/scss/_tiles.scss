@@ -23,11 +23,9 @@
   @include tileprop;
   h2, h3 {
     text-align: left;
-    padding: 5px 0;
     border-bottom: 1px solid #e7e8ec;
   }
   p {
-    padding: 5px 0;
     text-align: justify;
     text-indent: 20px;
   }
@@ -79,8 +77,6 @@ a.unit-link {
 }
 .headline {
   margin: 0;
-  font-size: 2rem;
-  line-height: 1.125;
   font-weight: 600;
   letter-spacing: .004em;
 }

@@ -1,6 +1,6 @@
 ﻿$body-color: #edeef0;
 $txt-color: #000;
-$header-color: #2d333bcc;
+$header-color: rgba(45, 51, 59, 0.8);
 $footer-color: rgb(34, 51, 51);
 $link-color: #fff;
 $tile-part-color: #fff;
@@ -26,6 +26,28 @@ ul {
   list-style: none;
   color: $txt-color;
 }
+p {margin-bottom: 1.25em;}
+
+h1, h2, h3, h4, h5 {
+  margin: 2.75rem 0 1rem;
+  font-weight: lighter;
+  line-height: 1.15;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 2.488em;
+}
+
+h2 {font-size: 2.074em;}
+
+h3 {font-size: 1.728em;}
+
+h4 {font-size: 1.44em;}
+
+h5 {font-size: 1.2em;}
+
+small, .text_small {font-size: 0.833em;}
 //--------------------------------------------
 .flex-row {
   display: flex;
@@ -42,9 +64,9 @@ ul {
 //---------------------------------------------
 body {
   background-color: $body-color;
-  font-size: 1rem;
   font-weight: lighter;
   letter-spacing: 0.05rem;
+  line-height: 1.45;
   height: 100vh;
   display: flex;
   flex-flow: column nowrap;
@@ -107,8 +129,9 @@ a {
   text-decoration: none;
   color: $txt-color;
 }
-section {
-  margin: 20px 0;
+.text_container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 //---------------------------------------------
 // Настройка главного меню и шапки
@@ -161,11 +184,16 @@ nav {
   display: inline-block;
   vertical-align: middle;
 }
+.block {
+  padding-top: 120px;
+  padding-bottom: 120px;
+  border-bottom: 1px solid #cccccc;
+}
 // Первый заголовк на главной странице
 .main_title {
-  font-weight: lighter;
   text-transform: uppercase;
   text-align: center;
+  padding-bottom: 60px;
   color: $txt-color;
 }
 @import "tiles";
@@ -284,7 +312,7 @@ span.manyfoto {
   font-weight: lighter;
   font-size: 2rem;
   text-align: center;
-  margin: 10px 0 10px 0;
+  margin-bottom: 60px;
   color: $txt-color;
 }
 //---------------------------------------------
@@ -399,6 +427,8 @@ span.manyfoto {
 .error {
   background-color: rgb(255, 187, 187) !important;
 }
+//-- Стили для оформления текстовых блоков в админке
+@import "txtstyle";
 //---------------------------------------------
 @import "icons";
 @import "core-media";
