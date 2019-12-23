@@ -4,20 +4,24 @@
 {% block title %}{{ partition.title }}{% endblock %}
 
 {% block content %}
-<h1 class="main_title">{{ partition.title|safe }}</h1>
-<br>
-<div>{{ partition.content|safe }}</div>
-<br>
-<div class="gallery_grid">
-{% for obj in phobj %}
-<a class="gallery_img_link" href="{{ request.path }}{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
-  <picture>
-    <source srcset="{{ obj.get_middle_thumb_url }}" type="image/webp">
-    <img class="gallery_grid_img" src="{{ obj.get_middle_thumb_jpg_url }}" alt="фото">
-  </picture>
-  <span class="manyfoto"></span>
-</a>
-{% endfor %}
+<div class="block">
+<div class="text_container">
+  <h1 class="tc">{{ partition.title|safe }}</h1>
+  <br>
+  <div class="text_container">{{ partition.content|safe }}</div>
+  <br>
+</div>
+  <div class="gallery_grid">
+  {% for obj in phobj %}
+  <a class="gallery_img_link" href="{{ request.path }}{{ obj.pk }}" rel="slide" data-img_id="{{ obj.pk }}">
+    <picture>
+      <source srcset="{{ obj.get_middle_thumb_url }}" type="image/webp">
+      <img class="gallery_grid_img" src="{{ obj.get_middle_thumb_jpg_url }}" alt="фото">
+    </picture>
+    <span class="manyfoto"></span>
+  </a>
+  {% endfor %}
+  </div>
 </div>
 <script>
   var context_list = {{ context_list }};

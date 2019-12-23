@@ -34,31 +34,33 @@
 </main>
  <footer>
   <div class="container">
-   <div class="footer-box">
-     <ul class="menu">
-       <li><a href="/" title="Главная">Главная</a></li>
-       <li><a href="/works/" title="Наши работы">Наши работы</a></li>
-       <li><a href="/blog/" title="Блог">Статьи</a></li>
-       <li><a href="/about/contact/" title="Контакты">Контакты</a></li>
-     </ul>
-   </div>
-   <div class="footer-box">
+<div class="text_container">
+  <div class="footer-box">
     <ul class="menu">
-      {% for part in partitions %}
-      <li>
-        <a href="{{ part.url }}">{{ part.title|safe }}</a>
-      </li>
-      {% endfor %}
-      </ul>
-   </div>
-   <div class="footer-box">
-     <ul class="menu">
-       <li><a href="tel:+79202068398" title="Контакты" rel="noreferrer">8(920)-206-83-98</a></li>
-       <li><a href="mailto:shkafkupebel@ya.ru?subject=Заявка%20с%20сайт" rel="noreferrer">shkafkupebel@ya.ru</a></li>
-       <li><a href="https://vk.com/shkafkupebel" target="_blank" rel="noreferrer">Вконтакте</a></li>
-       <li><a href="/about/contact/" rel="noreferrer">Написать</a></li>
+      <li><a href="/" title="Главная">Главная</a></li>
+      <li><a href="/works/" title="Наши работы">Наши работы</a></li>
+      <li><a href="/blog/" title="Блог">Статьи</a></li>
+      <li><a href="/about/contact/" title="Контакты">Контакты</a></li>
+    </ul>
+  </div>
+  <div class="footer-box">
+   <ul class="menu">
+     {% for part in partitions %}
+     <li>
+       <a href="{{ part.url }}">{{ part.title|safe }}</a>
+     </li>
+     {% endfor %}
      </ul>
-   </div>
+  </div>
+  <div class="footer-box">
+    <ul class="menu">
+      <li><a href="tel:+79202068398" title="Контакты" rel="noreferrer">8(920)-206-83-98</a></li>
+      <li><a href="mailto:shkafkupebel@ya.ru?subject=Заявка%20с%20сайт" rel="noreferrer">shkafkupebel@ya.ru</a></li>
+      <li><a href="https://vk.com/shkafkupebel" target="_blank" rel="noreferrer">Вконтакте</a></li>
+      <li><a href="/about/contact/" rel="noreferrer">Написать</a></li>
+    </ul>
+  </div>
+</div>
   </div>
  </footer>
  <script async src="{% static 'core/js/core.js' %}"></script>

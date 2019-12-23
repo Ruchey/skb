@@ -83,3 +83,12 @@
   }
 
 }
+@media (max-height: 360px) and (orientation:landscape) {
+  .head_slogon {
+    font-size: 1.2rem;
+  }
+  .headlogo {
+    height: 15vh;
+    padding: 0.3rem;
+  }
+}
