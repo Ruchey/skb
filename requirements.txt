@@ -1,4 +1,4 @@
-Django==2.2.5
+Django==2.2.10
 gyp==0.1
 mysqlclient==1.4.4
 Pillow-SIMD==6.0.0.post0
